@@ -37,7 +37,7 @@ export default {
         .signOut()
         .then(() => {
           this.user = null;
-          this.$router.push("login");
+          this.$router.push("/");
         });
     },
     addMeeting: function(payload){
@@ -117,6 +117,6 @@ export default {
 
 
 <style lang="scss">
-$primary: #05b2dd;
+$primary: black;
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>

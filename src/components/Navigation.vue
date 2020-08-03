@@ -5,18 +5,19 @@
         <router-link
           class="navbar-brand"
           to="/"
-        >Meeting Log</router-link>
+        >Cookbook</router-link>
+
         <div class="navbar-nav ml-auto">
           <router-link
             class="nav-item nav-link"
-            to="/meetings"
+            to="/recipes"
             v-if="user"
-          >meetings</router-link>
+          >Recipes</router-link>
           <router-link
             class="nav-item nav-link"
-            to="/login"
-            v-if="!user"
-          >log in</router-link>
+            to="/createrecipe"
+            v-if="user"
+          >Create a recipe</router-link>
           <router-link
             class="nav-item nav-link"
             to="/register"

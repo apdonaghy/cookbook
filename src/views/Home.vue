@@ -17,14 +17,11 @@
     <div class="container text-center">
       <div class="row justify-content-center">
         <div class="col-10 col-md-10 col-lg-8 col-xl-7">
-          <h4 class="display-4 text-primary mb-2">Meeting Log</h4>
+          <h4 class="display-4 text-primary mb-2">Welcome</h4>
           <p class="lead">
-            This simple app creates meetings, allows people to check in, and
-            picks random users to award giveaways. It's a good example of a
-            Single Page Application which includes connection to a database and
-            routing. It's a practical way to learn
+            This app can help you store all of your favorite recipes with
             <a href="https://vuejs.org/">Vue.js</a>
-            with
+            and
             <a href="https://firebase.google.com">Firebase</a>.
           </p>
 
@@ -40,9 +37,9 @@
           >Log In</router-link>
           <router-link
             class="btn btn-primary"
-            to="/meetings"
+            to="/recipes"
             v-if="user"
-          >Meetings</router-link>
+          >Recipes</router-link>
         </div>
       </div>
     </div>

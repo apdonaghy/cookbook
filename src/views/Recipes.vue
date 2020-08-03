@@ -1,10 +1,10 @@
 <template>
   <div class="container mt-4">
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
       <div class="col-12 col-md-9 col-lg-7">
         <h1
           class="font-weight-light text-center"
-        >Add a Meeting</h1>
+        >Recipes</h1>
 
         <div class="card bg-light">
           <div class="card-body text-center">
@@ -18,8 +18,8 @@
                   aria-describedby="buttonAdd"
                   v-model="meetingName"
                   ref="meetingName"
-                />
-                <div class="input-group-append">
+                /> -->
+                <!-- <div class="input-group-append">
                   <button
                     type="submit"
                     class="btn btn-sm btn-info"
@@ -34,12 +34,12 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
         <div class="row justify-content-center">
       <div class="col-11 col-md-8 col-lg-6">
         <div class="card border-top-0 rounded-0">
           <div class="card-body py-2">
-            <h4 class="card-title m-0 text-center">Your Meetings</h4>
+            <h4 class="card-title m-0 text-center">Your Recipes</h4>
           </div>
           <div class="list-group list-group-flush">
             <div
@@ -69,19 +69,20 @@
 
                 </router-link>
 
-                <router-link
+                <!-- <router-link
                   class="btn btn-sm btn-outline-secondary"
                   title="Attendees"
                   :to="'/attendees/' + user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="list-ul"></font-awesome-icon>
 
-                </router-link>
+                </router-link> -->
               </section>
 
-              <section class="pl-3 text-left align-self-center">
+              <router-link  :to="'/attendees/' + user.uid + '/' + item.id" 
+              class="pl-3 text-left align-self-center">
                 {{ item.name }}
-              </section>
+              </router-link>
             </div>
           </div>
         </div>

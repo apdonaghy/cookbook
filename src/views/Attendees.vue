@@ -1,10 +1,10 @@
 <template>
-  <div class="container mt-4">
+  <div class="container mt-4" v-if="user !== null && user.uid == userID">
     <div
     class="row justify-content-center"
     >
-    <div class="col-md-8" v-if="user !== null && user.uid == userID">
-        <h1 class="font-weight-light text-center">Attendees</h1>
+    <div class="col-md-8">
+        <h1 class="font-weight-light text-center">{{  }}</h1>
 
         <div class="card bg-light mb-4">
         <div class="card-body text-center">
@@ -89,6 +89,7 @@ export default {
   name: "Attendees",
   data: function() {
     return {
+      // recipeTitle: this.meetingName,
       attendees: [],
       displayAttendees: [],
       searchQuery: '',

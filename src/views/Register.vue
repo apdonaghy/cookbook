@@ -76,6 +76,7 @@ export default {
     return {
       displayName: null,
       email: null,
+      passOne: null,
       passTwo: null,
       error: null
     };
