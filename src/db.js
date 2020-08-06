@@ -1,12 +1,14 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAsCEZACXpOxbQrIwtT5U5dH8BtA9JuidY", 
-    databaseURL: "https://vue-spas-75809.firebaseio.com",
-    projectId: "vue-spas-75809",
-    storageBucket: "vue-spas-75809.appspot.com",
-    messagingSenderId: "399890640990",
-    appId: "1:399890640990:web:c819983db72f5a996404cf"
+  apiKey: "AIzaSyASND-4U8aDjNDbVB7jzs3QDxOwYwq8jVY",
+  authDomain: "cookbook-fa062.firebaseapp.com",
+  databaseURL: "https://cookbook-fa062.firebaseio.com",
+  projectId: "cookbook-fa062",
+  storageBucket: "cookbook-fa062.appspot.com",
+  messagingSenderId: "983098582230",
+  appId: "1:983098582230:web:b835e4aee11095585a1577",
+  measurementId: "G-BFPQV08YNG"
 };
   // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);

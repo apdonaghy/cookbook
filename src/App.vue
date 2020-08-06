@@ -7,12 +7,11 @@
     <router-view
       class="container"
       :user="user"
-      :meetings="meetings"
+      :recipes="recipes"
       :error="error"
       @logout="logout"
-      @addMeeting="addMeeting"
-      @deleteMeeting="deleteMeeting"
-      @checkIn="checkIn"
+      @addRecipe="addRecipe"
+      @deleterecipe="deleterecipe"
     />
   </div>
 </template>
@@ -28,7 +27,7 @@ export default {
     return {
       user: null,
       error: null,
-      meetings: []
+      recipes: []
     };
   },
   methods: {
@@ -37,77 +36,69 @@ export default {
         .signOut()
         .then(() => {
           this.user = null;
-          this.$router.push("/");
+          this.$router.push("login");
         });
     },
-    addMeeting: function(payload){
-      db.collection('users')
-      .doc(this.user.uid)
-      .collection("meetings")
-      .add({
-        name: payload,
-        createdAt: Firebase.firestore.FieldValue.serverTimestamp()
-      });
+    addRecipe: function(payload) {
+      // try adding image here too
+   
+      db.collection("users")
+        .doc(this.user.uid)
+        .collection("recipes")
+        .add({
+          recipeName: payload.recipeName,
+          ingredients: payload.ingredients,
+          recipeInstructions: payload.recipeInstructions,
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+        });
+        console.log(this.recipes)
     },
-    deleteMeeting: function(payload) {
-      db.collection('users')
-      .doc(this.user.uid)
-      .collection("meetings")
-      .doc(payload)
-      .delete();
-    },
-    checkIn: function(payload){
-      db.collection('users')
-      .doc(payload.userID)
-      .collection('meetings')
-      .doc(payload.meetingID)
-      .get()
-      .then(doc =>{
-        if (doc.exists){
-          db.collection('users')
-          .doc(payload.userID)
-          .collection('meetings')
-          .doc(payload.meetingID)
-          .collection("attendees")
-          .add({
-            displayName: payload.displayName,
-            eMail: payload.eMail,
-            createdAt: Firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then(()=> this.$router.push('/attendees/' + payload.userID + '/' + payload.meetingID));
-        } else{
-          this.error = "sorry, no such meeting"
-        }
-      })
+    deleterecipe: function(payload) {
+      db.collection("users")
+        .doc(this.user.uid)
+        .collection("recipes")
+        .doc(payload)
+        .delete();
     }
   },
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user;
-        
-        db.collection('users')
-        .doc(this.user.uid)
-        .collection('meetings')
-        .onSnapshot(snapshot => {
-          const snapData = [];
-          snapshot.forEach( doc => {
+        db.collection("users")
+          .doc(this.user.uid)
+          .collection("recipes")
+          .onSnapshot(snapshot => {
+            const snapData = [];
+            snapshot.forEach(doc => {
               snapData.push({
-              id: doc.id,
-              name: doc.data().name
-            })
-          })
-          this.meetings = snapData.sort((a, b) =>{
-            if (a.name.toLowerCase() < b.name.toLowerCase()){
-              return -1;
-            }else{
-              return 1;
-            }
+                id: doc.id,
+                recipeName: doc.data().recipeName,
+                recipeInstructions: doc.data().recipeInstructions,
+                ingredients: doc.data().ingredients
+                });
+            
+            });
+            // alphabetical org
+            //  this.recipes = snapData.sort((a, b) => {
+            //   if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            //     return -1;
+            //   } else {
+            //     return 1;
+            //   }
+            // });
+             // alphabetical org
+            this.recipes = snapData.sort((a, b) => {
+              if (a.createdAt < b.createdAt) {
+                return -1;
+              } else {
+                return 1;
+              }
+            });
           });
-        })
-
       }
     });
+        
   },
   components: {
     Navigation
@@ -117,6 +108,6 @@ export default {
 
 
 <style lang="scss">
-$primary: black;
+$primary: #05b2dd;
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>

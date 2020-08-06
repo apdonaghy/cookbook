@@ -6,25 +6,29 @@
           class="navbar-brand"
           to="/"
         >Cookbook</router-link>
-
         <div class="navbar-nav ml-auto">
           <router-link
             class="nav-item nav-link"
             to="/recipes"
             v-if="user"
-          >Recipes</router-link>
+          >recipes</router-link>
           <router-link
             class="nav-item nav-link"
-            to="/createrecipe"
+            to="/create"
             v-if="user"
           >Create a recipe</router-link>
+          <router-link
+            class="nav-item nav-link"
+            to="/login"
+            v-if="!user"
+          >log in</router-link>
           <router-link
             class="nav-item nav-link"
             to="/register"
             v-if="!user"
           >register</router-link>
-          <button
-           v-if="user"
+          <button 
+            v-if="user"
             class="nav-item nav-link btn btn-link"
             @click="$emit('logout')"
           >

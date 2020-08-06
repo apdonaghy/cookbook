@@ -76,7 +76,6 @@ export default {
     return {
       displayName: null,
       email: null,
-      passOne: null,
       passTwo: null,
       error: null
     };
@@ -98,7 +97,7 @@ export default {
                   displayName: info.displayName
                 })
                 .then(() => {
-                  this.$router.replace("meetings");
+                  this.$router.replace("recipes");
                 });
             },
             error => {

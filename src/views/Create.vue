@@ -1,0 +1,128 @@
+<template>
+  <div class="container centered">
+    <h1 class="text-center">Create Recipe</h1>
+    <form @submit.prevent="handleAdd" id="createRecipe">
+      <div>
+        <input
+          type="text"
+          class="form-control block"
+          name="recipeName"
+          placeholder="Recipe title"
+          aria-describedby="buttonAdd"
+          v-model="recipeName"
+          ref="recipeName"
+        />
+
+        <input
+          type="text"
+          class="form-control"
+          name="ingredient"
+          placeholder="Ingredient"
+          aria-describedby="buttonAdd"
+          v-model="ingredient"
+          ref="ingredient"
+        />
+        <span style="cursor:pointer;" @click="addIngredient" role="button" class="btn btn-sm btn-info float">+</span>
+
+        <ul class="block">
+          <li v-for="(item, index) in ingredients" :key="index">{{ item }}</li>
+        </ul>
+
+        <textarea
+          type="text"
+          class="form-control block"
+          name="recipeInstructions"
+          placeholder="Recipe instructions"
+          aria-describedby="buttonAdd"
+          v-model="recipeInstructions"
+          ref="recipeInstructions"
+        />
+
+        <div class="input-group-append float">
+          <button type="submit" class="btn btn-lg btn-info" id="buttonAdd">+</button>
+        </div>
+      </div>
+      <!-- <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
+      <img :src="imageURL" height="150px" /> -->
+    </form>
+  </div>
+</template>
+<script>
+// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+export default {
+  name: "create",
+  data: function() {
+    return {
+      recipeName: null,
+      recipeInstructions: null,
+      imageURL: "",
+      image: null,
+      ingredient: null,
+      ingredients: []
+    };
+  },
+  props: ['user', 'recipes'],
+  components: {},
+  methods: {
+    addIngredient: function() {
+      this.ingredients.push(this.ingredient);
+      this.ingredient = null;
+      this.$refs.ingredient.focus();
+      console.log(this.ingredients);
+      // this.ingredients
+    },
+    handleAdd: function() {
+      this.$emit("addRecipe", {
+        recipeName: this.recipeName,
+        recipeInstructions: this.recipeInstructions,
+        ingredients: this.ingredients
+      });
+      this.recipeName = null;
+      this.recipeInstructions = null;
+      this.$refs.recipeName.focus();
+      // this.$router.push("/recipes"); 
+      this.$router.push('/recipe/'); 
+
+      // this.$router.push("/recipe" + user.uid + '/' + recipe.id); 
+    },
+    recipePicChosen: function(event) {
+      const files = event.target.files;
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("please add a valid file");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageURL = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
+    }
+  }
+  //   props: ["user", "recipes"]
+};
+</script>
+
+<style scoped>
+h1{
+  margin-bottom:1em;
+}
+
+.block{
+  display:block;
+  margin-bottom:2em;
+}
+.large-text{
+  font-size:2em;
+  float:right;
+}
+.centered{
+  width:25em;
+  margin:0 auto;
+  margin-top:50px;
+}
+.float{
+  float:right;
+}
+
+</style>

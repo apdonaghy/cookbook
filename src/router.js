@@ -2,11 +2,11 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
-import Createrecipe from "./views/Createrecipe.vue";
-import Meetings from "./views/Recipes.vue";
+import Recipes from "./views/Recipes.vue";
+import Recipe from "./views/Recipe.vue";
 import Register from "./views/Register.vue";
-import CheckIn from "./views/Checkin.vue";
-import Attendees from "./views/Attendees.vue";
+import Create from "./views/Create.vue";
+
 
 Vue.use(Router);
 
@@ -25,7 +25,12 @@ export default new Router({
     {
       path: "/recipes",
       name: "recipes",
-      component: Meetings
+      component: Recipes
+    },
+    {
+      path: "/recipe/:userID/:recipesID",
+      name: "recipe",
+      component: Recipe
     },
     {
       path: "/register",
@@ -33,19 +38,9 @@ export default new Router({
       component: Register
     },
     {
-      path: "/createrecipe",
-      name: "createrecipe",
-      component: Createrecipe
-    },
-    {
-      path:"/checkin/:userID/:meetingID", 
-      name: "CheckIn",
-      component: CheckIn
-    },
-    {
-      path:"/attendees/:userID/:meetingID", 
-      name: "attendees",
-      component: Attendees
+      path: "/create",
+      name: "create",
+      component: Create
     },
     {
       path: "*",

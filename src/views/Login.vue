@@ -8,7 +8,7 @@
               <div class="card-body">
                 <h3 class="font-weight-light mb-3">Log in</h3>
                 <section class="form-group">
-                  <div class="col-12 alert alert-danger px-3" v-if="error">{{error}}</div>
+                  <div class="col-12 alert alert-danger px-3" v-if="error">{{ error }}</div>
                   <label class="form-control-label sr-only" for="Email">Email</label>
                   <input
                     required
@@ -64,7 +64,7 @@ export default {
         .signInWithEmailAndPassword(info.email, info.password)
         .then(
           () => {
-            this.$router.push("recipes");
+            this.$router.push("meetings");
           },
           error => {
             this.error = error.message;

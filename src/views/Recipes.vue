@@ -1,52 +1,13 @@
 <template>
   <div class="container mt-4">
-    <!-- <div class="row justify-content-center">
-      <div class="col-12 col-md-9 col-lg-7">
-        <h1
-          class="font-weight-light text-center"
-        >Recipes</h1>
-
-        <div class="card bg-light">
-          <div class="card-body text-center">
-            <form class="formgroup">
-              <div class="input-group input-group-lg">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="meetingName"
-                  placeholder="Meeting name"
-                  aria-describedby="buttonAdd"
-                  v-model="meetingName"
-                  ref="meetingName"
-                /> -->
-                <!-- <div class="input-group-append">
-                  <button
-                    type="submit"
-                    class="btn btn-sm btn-info"
-                    id="buttonAdd"
-                    @click.prevent="handleAdd"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
-        <div class="row justify-content-center">
+    <div class="row justify-content-center">
       <div class="col-11 col-md-8 col-lg-6">
         <div class="card border-top-0 rounded-0">
           <div class="card-body py-2">
             <h4 class="card-title m-0 text-center">Your Recipes</h4>
           </div>
           <div class="list-group list-group-flush">
-            <div
-              class="list-group-item d-flex"
-              v-for="item in meetings"
-              :key="item.id"
-            >
+            <div class="list-group-item d-flex" v-for="item of recipes" :key="item.id">
               <section
                 class="btn-group align-self-center"
                 role="group"
@@ -55,34 +16,16 @@
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Delete Meeting"
-                  @click="$emit('deleteMeeting', item.id)"
+                  @click="$emit('deleterecipe', item.id)"
                 >
                   <font-awesome-icon icon="trash"></font-awesome-icon>
                 </button>
-
-                <router-link
-                  class="btn btn-sm btn-outline-secondary"
-                  title="Check In"
-                  :to="'/checkin/' + user.uid + '/' + item.id"
-                >
-                  <font-awesome-icon icon="link"></font-awesome-icon>
-
-                </router-link>
-
-                <!-- <router-link
-                  class="btn btn-sm btn-outline-secondary"
-                  title="Attendees"
-                  :to="'/attendees/' + user.uid + '/' + item.id"
-                >
-                  <font-awesome-icon icon="list-ul"></font-awesome-icon>
-
-                </router-link> -->
               </section>
 
-              <router-link  :to="'/attendees/' + user.uid + '/' + item.id" 
-              class="pl-3 text-left align-self-center">
-                {{ item.name }}
-              </router-link>
+              <router-link
+                :to="'/recipe/' + user.uid + '/' + item.id"
+                class="pl-3 text-left align-self-center"
+              >{{item.recipeName}}</router-link>
             </div>
           </div>
         </div>
@@ -91,24 +34,16 @@
   </div>
 </template>
 <script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
-  name: "Meetings",
-  data: function(){
-    return{
-      meetingName: null
+  name: "recipes",
+  data: function() {
+    return {
     };
   },
-  components:{
+  components: {
     FontAwesomeIcon
   },
-  methods:{
-    handleAdd: function(){
-      this.$emit('addMeeting', this.meetingName);
-      this.meetingName = null;
-      this.$refs.meetingName.focus();
-    }
-  },
-  props: ['user', 'meetings']
+  props: ["user", "recipes"]
 };
 </script>

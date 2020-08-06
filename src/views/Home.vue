@@ -17,13 +17,15 @@
     <div class="container text-center">
       <div class="row justify-content-center">
         <div class="col-10 col-md-10 col-lg-8 col-xl-7">
-          <h4 class="display-4 text-primary mb-2">Welcome</h4>
+     
+      <h4 class="display-4 text-primary mb-2">Welcome</h4>
           <p class="lead">
             This app can help you store all of your favorite recipes with
             <a href="https://vuejs.org/">Vue.js</a>
             and
             <a href="https://firebase.google.com">Firebase</a>.
           </p>
+
 
           <router-link
             class="btn btn-outline-primary mr-2"
