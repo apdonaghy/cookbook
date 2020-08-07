@@ -55,26 +55,32 @@ export default {
   name: "create",
   data: function() {
     return {
-      recipeName: null,
+      recipeName: '',
       recipeInstructions: null,
       previewUrl: "",
       image: null,
-      ingredient: null,
+      ingredient: '',
       ingredients: [],
-      imageUrlName: '',
+      imageUrlName: 'cookbook.svg',
     };
   },
   props: ['user', 'recipes'],
   components: {},
   methods: {
     addIngredient: function() {
+
+      if(this.ingredient !== ''){
       this.ingredients.push(this.ingredient);
       this.ingredient = null;
       this.$refs.ingredient.focus();
       console.log(this.ingredients);
       // this.ingredients
+      }else{
+        console.log("error")
+      }
     },
     handleAdd: function() {
+      if(this.recipeName !== ''){
       this.$emit("addRecipe", {
         recipeName: this.recipeName,
         recipeInstructions: this.recipeInstructions,
@@ -84,7 +90,9 @@ export default {
       this.recipeName = null;
       this.recipeInstructions = null;
       this.$refs.recipeName.focus();
- 
+    } else{
+      console.log('error')
+    }
     },
     recipePicChosen: function(event) {
       function removeSpaces(str){
@@ -111,7 +119,7 @@ export default {
       console.log(this.imageUrlName)
     }
 
-
+  
 
   }
   //   props: ["user", "recipes"]
