@@ -12,17 +12,20 @@
           v-model="recipeName"
           ref="recipeName"
         />
+        <p>Upload an image of your dish</p>
+      <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
+      <img :src="previewUrl" height="150px" />
 
         <input
           type="text"
-          class="form-control"
+          class="form-control mt-4"
           name="ingredient"
           placeholder="Ingredient"
           aria-describedby="buttonAdd"
           v-model="ingredient"
           ref="ingredient"
         />
-        <span style="cursor:pointer;" @click="addIngredient" role="button" class="btn btn-sm btn-info float">+</span>
+        <span style="cursor:pointer;" @click="addIngredient" role="button" class="btn btn-sm btn-info float mb-4">Add ingredient+</span>
 
         <ul class="block">
           <li v-for="(item, index) in ingredients" :key="index">{{ item }}</li>
@@ -39,26 +42,26 @@
         />
 
         <div class="input-group-append float">
-          <button type="submit" class="btn btn-lg btn-info" id="buttonAdd">+</button>
+          <button type="submit" class="btn btn-lg btn-info" id="buttonAdd">Create Recipe</button>
         </div>
       </div>
-      <!-- <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
-      <img :src="imageURL" height="150px" /> -->
     </form>
   </div>
 </template>
 <script>
-// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Firebase from "firebase";
+
 export default {
   name: "create",
   data: function() {
     return {
       recipeName: null,
       recipeInstructions: null,
-      imageURL: "",
+      previewUrl: "",
       image: null,
       ingredient: null,
-      ingredients: []
+      ingredients: [],
+      imageUrlName: '',
     };
   },
   props: ['user', 'recipes'],
@@ -75,17 +78,19 @@ export default {
       this.$emit("addRecipe", {
         recipeName: this.recipeName,
         recipeInstructions: this.recipeInstructions,
-        ingredients: this.ingredients
+        ingredients: this.ingredients,
+        imageUrlName: this.imageUrlName
       });
       this.recipeName = null;
       this.recipeInstructions = null;
       this.$refs.recipeName.focus();
-      // this.$router.push("/recipes"); 
-      this.$router.push('/recipe/'); 
-
-      // this.$router.push("/recipe" + user.uid + '/' + recipe.id); 
+ 
     },
     recipePicChosen: function(event) {
+      function removeSpaces(str){
+       return str.replace(/ /g, "_"); 
+      }
+
       const files = event.target.files;
       let filename = files[0].name;
       if (filename.lastIndexOf(".") <= 0) {
@@ -93,11 +98,21 @@ export default {
       }
       const fileReader = new FileReader();
       fileReader.addEventListener("load", () => {
-        this.imageURL = fileReader.result;
+        this.previewUrl = fileReader.result;
       });
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
+
+      const storageRef = Firebase.storage().ref();
+      const imgFolder = storageRef.child(`images/${removeSpaces(this.image.name)}`); 
+      imgFolder.put(this.image)
+
+      this.imageUrlName = removeSpaces(this.image.name)
+      console.log(this.imageUrlName)
     }
+
+
+
   }
   //   props: ["user", "recipes"]
 };

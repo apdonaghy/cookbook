@@ -4,6 +4,9 @@
       <p v-if="item.id === recipesID">{{item.recipeName}}</p>
     </div> -->
 <div v-for="item in actualRecipe" :key="item.id">
+
+  <img :src="item.imageUrlName">
+
   <p> {{ item.recipeName }} </p>
 
   <ul> 
@@ -28,7 +31,7 @@ export default {
       userID: this.$route.params.userID,
       recipesID: this.$route.params.recipesID,
       localRecipe: [],
-      actualRecipe:[]
+      actualRecipe: []
     };
   },
   props: ["user", "recipes"],
@@ -44,7 +47,8 @@ export default {
                 id: doc.id,
                 recipeName: doc.data().recipeName,
                 recipeInstructions: doc.data().recipeInstructions,
-                ingredients: doc.data().ingredients
+                ingredients: doc.data().ingredients,
+                imageUrlName: doc.data().imageUrlName 
           });
         });
         this.localRecipe = snapData;

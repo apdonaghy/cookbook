@@ -40,8 +40,12 @@ export default {
         });
     },
     addRecipe: function(payload) {
-      // try adding image here too
-   
+      // const storageRef = Firebase.storage().ref();
+      // const filename = payload.image.name
+      // const ext  = filename.slice(filename.lastIndexOf('.'))
+      // const imgFolder = storageRef.child(`images/${payload.imageUrl + ext}`); 
+      // imgFolder.put(payload.image)
+
       db.collection("users")
         .doc(this.user.uid)
         .collection("recipes")
@@ -49,9 +53,11 @@ export default {
           recipeName: payload.recipeName,
           ingredients: payload.ingredients,
           recipeInstructions: payload.recipeInstructions,
+          imageUrlName: 'https://firebasestorage.googleapis.com/v0/b/cookbook-fa062.appspot.com/o/images%2F' + payload.imageUrlName + '?alt=media',
           createdAt: Firebase.firestore.FieldValue.serverTimestamp()
         });
-        console.log(this.recipes)
+      this.$router.push('/recipes'); 
+      console.log(this.recipes)
     },
     deleterecipe: function(payload) {
       db.collection("users")
@@ -75,9 +81,10 @@ export default {
                 id: doc.id,
                 recipeName: doc.data().recipeName,
                 recipeInstructions: doc.data().recipeInstructions,
-                ingredients: doc.data().ingredients
-                });
-            
+                ingredients: doc.data().ingredients,
+                imageUrlName:doc.data().imageUrlName
+                // imageUrl: doc.data().imageUrl 
+              });
             });
             // alphabetical org
             //  this.recipes = snapData.sort((a, b) => {
@@ -109,5 +116,12 @@ export default {
 
 <style lang="scss">
 $primary: #05b2dd;
+// *{
+//   background-color:black;
+// }
+
+// h1, h2, h2, p, li{
+//   color:white;
+// }
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>

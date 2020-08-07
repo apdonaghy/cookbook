@@ -26,6 +26,7 @@
                 :to="'/recipe/' + user.uid + '/' + item.id"
                 class="pl-3 text-left align-self-center"
               >{{item.recipeName}}</router-link>
+              <img class="thumbnail-images" :src="item.imageUrlName">
             </div>
           </div>
         </div>
@@ -47,3 +48,9 @@ export default {
   props: ["user", "recipes"]
 };
 </script>
+<style scoped>
+.thumbnail-images{
+  width:200px;
+  height:auto;
+}
+</style>
