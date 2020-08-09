@@ -1,15 +1,16 @@
 <template>
   <div v-if="user">
     <div v-for="item in actualRecipe" :key="item.id">
-      <img :src="item.imageUrlName" />
+  
 
-      <p>{{ item.recipeName }}</p>
-
+      <h2>{{ item.recipeName }}</h2>
+    <img :src="item.imageUrlName" />
+       <h3>Ingredients</h3>
       <ul>
         <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>
       </ul>
-
-      <p>{{ item.recipeInstructions }}</p>
+      <h3>Recipe</h3>
+      <p class="paragraphStyle">{{ item.recipeInstructions }}</p>
 
                   <button
                   class="btn btn-sm btn-outline-secondary"
@@ -43,6 +44,7 @@ export default {
   },
   props: ["user", "recipes"],
   mounted() {
+
     db.collection("users")
       .doc(this.userID)
       .collection("recipes")
@@ -68,3 +70,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.paragraphStyle{
+  white-space: pre-wrap;
+}
+</style>

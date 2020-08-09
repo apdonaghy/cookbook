@@ -85,13 +85,14 @@ export default {
   },
   methods: {
     addIngredient: function() {
+
+
+
       if (this.ingredient !== "") {
         this.ingredients.push(this.ingredient);
         this.ingredient = null;
         this.$refs.ingredient.focus();
-        console.log(this.ingredients);
-        console.log(this.localProgressArray)
-        // this.ingredients
+      
       } else {
         console.log("error");
       }
@@ -99,7 +100,10 @@ export default {
     deleteIngredient: function(index) {
       this.$delete(this.ingredients, index);
     },
+
+
     handleAdd: function() {
+
       if (this.recipeName !== "") {
         this.$emit("addRecipe", {
           recipeName: this.recipeName,
@@ -151,10 +155,10 @@ export default {
           progressArray.push(progress);
           switch (snapshot.state) {
             case Firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log("Upload is paused");
+              // console.log("Upload is paused");
               break;
             case Firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log("Upload is running");
+              // console.log("Upload is running");
               break;
           }
         }

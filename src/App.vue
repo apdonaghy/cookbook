@@ -102,6 +102,15 @@ export default {
 
 <style lang="scss">
 $primary: #05b2dd;
+
+@font-face {
+font-family: 'NeutraTextBoldAlt';
+src: url(../public/NeutraTextBoldAlt.otf);
+}
+
+*{
+  font-family: 'NeutraTextBoldAlt';
+}
 // *{
 //   background-color:black;
 // }
