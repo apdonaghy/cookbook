@@ -1,7 +1,7 @@
 <template>
   <div class="container centered">
     <h1 class="text-center">Create Recipe</h1>
-    <form @submit.prevent="handleAdd" id="createRecipe">
+    <form id="createRecipe">
       <div>
         <input
           type="text"
@@ -26,17 +26,18 @@
           v-model="ingredient"
           ref="ingredient"
         />
-        <span
+        <button
           style="cursor:pointer;"
-          @click="addIngredient"
+          @click.prevent="addIngredient"
           role="button"
           class="btn btn-sm btn-info float mb-4"
-        >Add ingredient+</span>
+        >Add ingredient+</button>
 
         <ul class="block">
           <li v-for="(item, index) in ingredients" :key="index">
             {{ item }}
             <span
+              role="button"
               class="delete"
               v-if="ingredients.length > 0"
               @click="deleteIngredient(index)"
@@ -55,7 +56,7 @@
         />
 
         <div class="input-group-append float">
-          <button type="submit" class="btn btn-lg btn-info" id="buttonAdd">Create Recipe</button>
+          <button type="submit" @click.prevent="handleAdd" class="btn btn-lg btn-info" id="buttonAdd">Create Recipe</button>
         </div>
       </div>
     </form>

@@ -101,15 +101,24 @@ export default {
 
 
 <style lang="scss">
-$primary: #05b2dd;
+$primary: black;
 
 @font-face {
 font-family: 'NeutraTextBoldAlt';
-src: url(../public/NeutraTextBoldAlt.otf);
+src: url(../public/fonts/NeutraTextBoldAlt.otf);
+}
+
+@font-face {
+font-family: 'SortsMillGoudy-Regular';
+src: url(../public/fonts/SortsMillGoudy-Regular.ttf);
 }
 
 *{
   font-family: 'NeutraTextBoldAlt';
+}
+
+p{
+  font-family:'SortsMillGoudy-Regular';
 }
 // *{
 //   background-color:black;

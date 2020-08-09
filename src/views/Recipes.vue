@@ -9,26 +9,14 @@
           <div class="list-group list-group-flush">
               <router-link to="/create" v-if="recipes.length === 0">Create a recipe</router-link>
             <div class="list-group-item d-flex" v-for="item of recipes" :key="item.id">
-            
-              <section
-                class="btn-group align-self-center"
-                role="group"
-                aria-label="Meeting Options"
-              >
-                <!-- <button
-                  class="btn btn-sm btn-outline-secondary"
-                  title="Delete Meeting"
-                  @click="$emit('deleterecipe', item.id)"
-                >
-                  <font-awesome-icon icon="trash"></font-awesome-icon>
-                </button> -->
-              </section>
+              <router-link :to="'/recipe/' + user.uid + '/' + item.id">
+              <div role="img" :aria-label="`${item.recipeName}`" class="thumbnailImages" :style="{backgroundImage:`url(${ item.imageUrlName })`}"></div>
 
               <router-link
                 :to="'/recipe/' + user.uid + '/' + item.id"
                 class="pl-3 text-left align-self-center"
               >{{item.recipeName}}</router-link>
-              <img class="thumbnail-images" :src="item.imageUrlName" />
+              </router-link>
             </div>
           </div>
         </div>
@@ -50,8 +38,11 @@ export default {
 };
 </script>
 <style scoped>
-.thumbnail-images {
+.thumbnailImages {
   width: 200px;
-  height: auto;
+  height: 200px;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
 }
 </style>
