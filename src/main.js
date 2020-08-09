@@ -5,10 +5,10 @@ import router from "./router";
 import {library} from "@fortawesome/fontawesome-svg-core";
 
 import {
-  faTrash, faLink, faListUl,faRandom, faUndo, faStar, faEnvelope
+  faTrash, faLink, faListUl,faRandom, faUndo, faStar, faEnvelope, faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTrash, faLink, faListUl,faRandom, faUndo, faStar, faEnvelope);
+library.add(faTrash, faLink, faListUl,faRandom, faUndo, faStar, faEnvelope, faSpinner);
 
 Vue.config.productionTip = false;
 

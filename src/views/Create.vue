@@ -13,8 +13,9 @@
           ref="recipeName"
         />
         <p>Upload an image of your dish</p>
-      <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
-      <img :src="previewUrl" height="150px" />
+        <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
+        <font-awesome-icon v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false" icon="spinner" class="fa-spin"></font-awesome-icon>
+        <img v-if="localProgressArray[localProgressArray.length - 1] === 100" :src="previewUrl" height="150px" />
 
         <input
           type="text"
@@ -25,10 +26,22 @@
           v-model="ingredient"
           ref="ingredient"
         />
-        <span style="cursor:pointer;" @click="addIngredient" role="button" class="btn btn-sm btn-info float mb-4">Add ingredient+</span>
+        <span
+          style="cursor:pointer;"
+          @click="addIngredient"
+          role="button"
+          class="btn btn-sm btn-info float mb-4"
+        >Add ingredient+</span>
 
         <ul class="block">
-          <li v-for="(item, index) in ingredients" :key="index">{{ item }}</li>
+          <li v-for="(item, index) in ingredients" :key="index">
+            {{ item }}
+            <span
+              class="delete"
+              v-if="ingredients.length > 0"
+              @click="deleteIngredient(index)"
+            >Delete item</span>
+          </li>
         </ul>
 
         <textarea
@@ -50,55 +63,62 @@
 </template>
 <script>
 import Firebase from "firebase";
-
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: "create",
   data: function() {
     return {
-      recipeName: '',
+      recipeName: "",
       recipeInstructions: null,
       previewUrl: "",
       image: null,
-      ingredient: '',
+      ingredient: "",
       ingredients: [],
-      imageUrlName: 'cookbook.svg',
+      imageUrlName: "cookbook.svg",
+      localProgressArray: [],
+      showSpinner: false
     };
   },
-  props: ['user', 'recipes'],
-  components: {},
+  props: ["user", "recipes"],
+  components: {
+    FontAwesomeIcon
+  },
   methods: {
     addIngredient: function() {
-
-      if(this.ingredient !== ''){
-      this.ingredients.push(this.ingredient);
-      this.ingredient = null;
-      this.$refs.ingredient.focus();
-      console.log(this.ingredients);
-      // this.ingredients
-      }else{
-        console.log("error")
+      if (this.ingredient !== "") {
+        this.ingredients.push(this.ingredient);
+        this.ingredient = null;
+        this.$refs.ingredient.focus();
+        console.log(this.ingredients);
+        console.log(this.localProgressArray)
+        // this.ingredients
+      } else {
+        console.log("error");
       }
+    },
+    deleteIngredient: function(index) {
+      this.$delete(this.ingredients, index);
     },
     handleAdd: function() {
-      if(this.recipeName !== ''){
-      this.$emit("addRecipe", {
-        recipeName: this.recipeName,
-        recipeInstructions: this.recipeInstructions,
-        ingredients: this.ingredients,
-        imageUrlName: this.imageUrlName
-      });
-      this.recipeName = null;
-      this.recipeInstructions = null;
-      this.$refs.recipeName.focus();
-    } else{
-      console.log('error')
-    }
+      if (this.recipeName !== "") {
+        this.$emit("addRecipe", {
+          recipeName: this.recipeName,
+          recipeInstructions: this.recipeInstructions,
+          ingredients: this.ingredients,
+          imageUrlName: this.imageUrlName
+        });
+        this.recipeName = null;
+        this.recipeInstructions = null;
+        this.$refs.recipeName.focus();
+      } else {
+        console.log("error");
+      }
     },
     recipePicChosen: function(event) {
-      function removeSpaces(str){
-       return str.replace(/ /g, "_"); 
+      function removeSpaces(str) {
+        return str.replace(/ /g, "_");
       }
-
+      this.showSpinner = true;
       const files = event.target.files;
       let filename = files[0].name;
       if (filename.lastIndexOf(".") <= 0) {
@@ -112,40 +132,62 @@ export default {
       this.image = files[0];
 
       const storageRef = Firebase.storage().ref();
-      const imgFolder = storageRef.child(`images/${removeSpaces(this.image.name)}`); 
-      imgFolder.put(this.image)
+      const imgFolder = storageRef.child(
+        `images/${removeSpaces(this.image.name)}`
+      );
+      imgFolder.put(this.image);
 
-      this.imageUrlName = removeSpaces(this.image.name)
-      console.log(this.imageUrlName)
+      this.imageUrlName = removeSpaces(this.image.name);
+      
+      let progressArray = []
+      this.localProgressArray = progressArray
+
+      imgFolder.put(this.image).on(
+        Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          var progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          progressArray.push(progress);
+          switch (snapshot.state) {
+            case Firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log("Upload is paused");
+              break;
+            case Firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log("Upload is running");
+              break;
+          }
+        }
+      );
     }
-
-  
-
   }
   //   props: ["user", "recipes"]
 };
 </script>
 
 <style scoped>
-h1{
-  margin-bottom:1em;
+h1 {
+  margin-bottom: 1em;
 }
 
-.block{
-  display:block;
-  margin-bottom:2em;
+.block {
+  display: block;
+  margin-bottom: 2em;
 }
-.large-text{
-  font-size:2em;
-  float:right;
+.large-text {
+  font-size: 2em;
+  float: right;
 }
-.centered{
-  width:25em;
-  margin:0 auto;
-  margin-top:50px;
+.centered {
+  width: 25em;
+  margin: 0 auto;
+  margin-top: 50px;
 }
-.float{
-  float:right;
+.float {
+  float: right;
 }
-
+.delete {
+  color: red;
+  cursor: pointer;
+}
 </style>

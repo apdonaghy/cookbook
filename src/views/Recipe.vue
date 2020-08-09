@@ -1,31 +1,35 @@
 <template>
   <div v-if="user">
-    <!-- <div class="list-group-item d-flex" v-for="item of recipes" :key="item.id">
-      <p v-if="item.id === recipesID">{{item.recipeName}}</p>
-    </div> -->
-<div v-for="item in actualRecipe" :key="item.id">
+    <div v-for="item in actualRecipe" :key="item.id">
+      <img :src="item.imageUrlName" />
 
-  <img :src="item.imageUrlName">
+      <p>{{ item.recipeName }}</p>
 
-  <p> {{ item.recipeName }} </p>
+      <ul>
+        <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>
+      </ul>
 
-  <ul> 
-    <li v-for="(ingredient, index) in item.ingredients" :key="index">
-    {{ ingredient }} 
-    </li>
-  </ul>
+      <p>{{ item.recipeInstructions }}</p>
 
-  <p> {{ item.recipeInstructions }} </p>
+                  <button
+                  class="btn btn-sm btn-outline-secondary"
+                  title="Delete Meeting"
+                  @click="$emit('deleterecipe', item.id)"
+                >
+                  <font-awesome-icon icon="trash"></font-awesome-icon>
+                  </button> 
 
-</div>
 
+    </div>
   </div>
 </template>
 <script>
 import db from "../db.js";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 export default {
   name: "recipe",
-  
+
   data: function() {
     return {
       userID: this.$route.params.userID,
@@ -34,8 +38,11 @@ export default {
       actualRecipe: []
     };
   },
+  components: {
+    FontAwesomeIcon
+  },
   props: ["user", "recipes"],
-    mounted() {
+  mounted() {
     db.collection("users")
       .doc(this.userID)
       .collection("recipes")
@@ -44,25 +51,20 @@ export default {
         const snapData = [];
         snapshot.forEach(doc => {
           snapData.push({
-                id: doc.id,
-                recipeName: doc.data().recipeName,
-                recipeInstructions: doc.data().recipeInstructions,
-                ingredients: doc.data().ingredients,
-                imageUrlName: doc.data().imageUrlName 
+            id: doc.id,
+            recipeName: doc.data().recipeName,
+            recipeInstructions: doc.data().recipeInstructions,
+            ingredients: doc.data().ingredients,
+            imageUrlName: doc.data().imageUrlName
           });
         });
         this.localRecipe = snapData;
-        for(let recipe in this.localRecipe){
-        if(this.localRecipe[recipe].id === this.recipesID){
-           this.actualRecipe.push(this.localRecipe[recipe])
-          
+        for (let recipe in this.localRecipe) {
+          if (this.localRecipe[recipe].id === this.recipesID) {
+            this.actualRecipe.push(this.localRecipe[recipe]);
+          }
         }
-        }
-       
       });
-     
   }
-  
-
 };
 </script>

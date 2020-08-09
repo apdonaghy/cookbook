@@ -40,12 +40,6 @@ export default {
         });
     },
     addRecipe: function(payload) {
-      // const storageRef = Firebase.storage().ref();
-      // const filename = payload.image.name
-      // const ext  = filename.slice(filename.lastIndexOf('.'))
-      // const imgFolder = storageRef.child(`images/${payload.imageUrl + ext}`); 
-      // imgFolder.put(payload.image)
-
       db.collection("users")
         .doc(this.user.uid)
         .collection("recipes")
@@ -57,7 +51,6 @@ export default {
           createdAt: Firebase.firestore.FieldValue.serverTimestamp()
         });
       this.$router.push('/recipes'); 
-      console.log(this.recipes)
     },
     deleterecipe: function(payload) {
       db.collection("users")
@@ -65,6 +58,7 @@ export default {
         .collection("recipes")
         .doc(payload)
         .delete();
+        this.$router.push("/recipes");
     }
   },
   mounted() {
@@ -82,21 +76,13 @@ export default {
                 recipeName: doc.data().recipeName,
                 recipeInstructions: doc.data().recipeInstructions,
                 ingredients: doc.data().ingredients,
-                imageUrlName:doc.data().imageUrlName
+                imageUrlName: doc.data().imageUrlName
                 // imageUrl: doc.data().imageUrl 
               });
             });
             // alphabetical org
-            //  this.recipes = snapData.sort((a, b) => {
-            //   if (a.title.toLowerCase() < b.title.toLowerCase()) {
-            //     return -1;
-            //   } else {
-            //     return 1;
-            //   }
-            // });
-             // alphabetical org
-            this.recipes = snapData.sort((a, b) => {
-              if (a.createdAt < b.createdAt) {
+             this.recipes = snapData.sort((a, b) => {
+              if (a.recipeName.toLowerCase() < b.recipeName.toLowerCase()) {
                 return -1;
               } else {
                 return 1;
