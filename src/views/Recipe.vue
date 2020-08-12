@@ -1,5 +1,6 @@
 <template>
   <div v-if="user">
+     <div class="top-space"></div>
     <div v-for="item in actualRecipe" :key="item.id">
   
 
@@ -38,6 +39,9 @@ export default {
       localRecipe: [],
       actualRecipe: []
     };
+  },
+    beforeCreate: function() {
+    document.body.className = 'white';
   },
   components: {
     FontAwesomeIcon

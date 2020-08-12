@@ -1,5 +1,7 @@
 <template>
-  <div class="container centered">
+  <div>
+     <div class="top-space"></div>
+    <div>
     <h1 class="text-center">Create Recipe</h1>
     <form id="createRecipe">
       <div>
@@ -60,6 +62,7 @@
         </div>
       </div>
     </form>
+    </div>
   </div>
 </template>
 <script>
@@ -80,14 +83,15 @@ export default {
       showSpinner: false
     };
   },
+     beforeCreate: function() {
+        document.body.className = 'white';
+    },
   props: ["user", "recipes"],
   components: {
     FontAwesomeIcon
   },
   methods: {
     addIngredient: function() {
-
-
 
       if (this.ingredient !== "") {
         this.ingredients.push(this.ingredient);
@@ -171,6 +175,7 @@ export default {
 </script>
 
 <style scoped>
+
 h1 {
   margin-bottom: 1em;
 }

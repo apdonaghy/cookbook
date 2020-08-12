@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-4">
+     <div class="top-space"></div>
     <div class="row justify-content-center">
       <div class="col-11 col-md-8 col-lg-6">
         <div class="card border-top-0 rounded-0">
@@ -30,6 +31,9 @@ export default {
   name: "recipes",
   data: function() {
     return {};
+  },
+  beforeCreate: function() {
+    document.body.className = 'white';
   },
   components: {
     // FontAwesomeIcon

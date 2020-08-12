@@ -1,46 +1,45 @@
 <template>
   <div>
-    <form class="mt-3" @submit.prevent="login">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <div class="card bg-light">
-              <div class="card-body">
-                <h3 class="font-weight-light mb-3">Log in</h3>
-                <section class="form-group">
-                  <div class="col-12 alert alert-danger px-3" v-if="error">{{ error }}</div>
-                  <label class="form-control-label sr-only" for="Email">Email</label>
-                  <input
-                    required
-                    class="form-control"
-                    type="email"
-                    id="email"
-                    placeholder="Email"
-                    v-model="email"
-                  />
-                </section>
-                <section class="form-group">
-                  <input
-                    required
-                    class="form-control"
-                    type="password"
-                    placeholder="Password"
-                    v-model="password"
-                  />
-                </section>
-                <div class="form-group text-right mb-0">
-                  <button class="btn btn-primary" type="submit">Log in</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="top-space"></div>
+       
+    <form class="login-form loginForm" @submit.prevent="login">
+      <h3>sign in</h3>
+      <section class="form-group">
+        <label  :class="{showLabel: emailLabel}" for="email">Email</label>
+        <input
+          @focus="emailHandler"
+          required
+          class="form-control"
+          type="email"
+          id="email"
+          placeholder="Email"
+          v-model="email"
+        />
+      </section>
+      <section class="form-group">
+        <label :class="{showLabel: passLabel}" for="password">Password</label>
+        <input
+          @focus="passHandler"
+          required
+          class="form-control"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+        />
+      </section>
+      <div class="form-group text-right mb-0">
+        <button class="signInBtn" type="submit">sign in</button>
       </div>
+
+      <p class="createAnAccount">
+        or
+        <router-link to="/register">Create an account</router-link>
+       
+      </p>
+       
     </form>
-    <p class="text-center mt-2">
-      or
-      <router-link to="/register">register</router-link>
-    </p>
+
+    <div class="error" v-show="error">{{ error }}</div>
   </div>
 </template>
 <script>
@@ -50,8 +49,13 @@ export default {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      emailLabel: false,
+      passLabel: false,
     };
+  },
+  beforeCreate: function() {
+    document.body.className = "brand";
   },
   methods: {
     login: function() {
@@ -64,13 +68,33 @@ export default {
         .signInWithEmailAndPassword(info.email, info.password)
         .then(
           () => {
-            this.$router.push("meetings");
+            this.$router.push("/recipes");
           },
           error => {
             this.error = error.message;
           }
         );
-    }
+    },
+      emailHandler: function(){
+      this.emailLabel = true
+      this.passLabel = false
+
+    },
+      passHandler: function(){
+      this.emailLabel = false
+      this.passLabel = true
+     
+    },
   }
 };
 </script>
+<style scoped>
+label{
+  visibility:hidden;
+  font-family: var(--medium);
+  font-size:1.05em;
+}
+.showLabel{
+  visibility:visible;
+}
+</style>

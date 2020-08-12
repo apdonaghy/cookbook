@@ -36,7 +36,7 @@ export default {
         .signOut()
         .then(() => {
           this.user = null;
-          this.$router.push("login");
+          this.$router.push("/login");
         });
     },
     addRecipe: function(payload) {
@@ -100,8 +100,18 @@ export default {
 </script>
 
 
-<style lang="scss">
-$primary: black;
+<style>
+
+::selection{
+  background-color:black;
+  color:white;
+}
+
+.top-space{
+ height:50px;
+ width:100%;
+ position:relative
+}
 
 @font-face {
 font-family: 'NeutraTextBoldAlt';
@@ -113,6 +123,55 @@ font-family: 'SortsMillGoudy-Regular';
 src: url(../public/fonts/SortsMillGoudy-Regular.ttf);
 }
 
+@font-face {
+font-family: 'NeutraMedium';
+src: url(../public/fonts/NeutraTextDemiAlt.otf);
+}
+
+
+
+*{
+  margin:0;
+  padding:0;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+h2{
+  font-size:3.75em;
+   margin-bottom:.7em;
+  text-align: center;
+
+}
+
+h3{
+  font-size:1.7em;
+  margin-bottom:1em;
+  text-align:center;
+}
+
+:root {
+  --brand: #ffdc87;
+  --offwhite: #fdfdfd;
+  --boldFace: 'NeutraTextBoldAlt';
+  --medium: 'NeutraMedium';
+  --paragraph: 'SortsMillGoudy-Regular';
+}
+
+.padding-top{
+  padding-top:50px;
+}
+
+body.brand {
+    background:var(--brand);
+}
+body.white {
+    background:var(--offwhite);
+}
+
+
+
+
 *{
   font-family: 'NeutraTextBoldAlt';
 }
@@ -120,12 +179,141 @@ src: url(../public/fonts/SortsMillGoudy-Regular.ttf);
 p{
   font-family:'SortsMillGoudy-Regular';
 }
-// *{
-//   background-color:black;
-// }
 
-// h1, h2, h2, p, li{
-//   color:white;
-// }
-@import "node_modules/bootstrap/scss/bootstrap";
+
+
+/* form */
+input[type="text"], input[type="email"], input[type="password"] {
+  border: none;
+  /* text-decoration: underline; */
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: var(--medium);
+  font-weight: 500;
+  color:black;
+  font-size: 1.75em;
+  width: 100%;
+  border-bottom: 3px solid black;
+  padding-top:7px;
+  padding-bottom:4px;
+  margin-bottom:1em;
+}
+
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+  border: none;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: var(--medium);
+  color:black;
+  border-bottom: 3px solid gray;
+  transition: 0.3s;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color:rgb(191, 191, 191);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:rgb(191, 191, 191);
+}
+
+::placeholder {
+  color:rgb(191, 191, 191);
+}
+
+input:focus::-webkit-input-placeholder 
+{
+    color: transparent;
+    transition: 0.3s;
+}
+
+
+.login-form{
+  background:white;
+  border-radius: 20px;
+  padding:2.75em;
+  position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+  z-index:1;
+  box-shadow: 0px 0px 20px #ffbc63;
+}
+
+@media only screen and (max-height: 800px){
+  .login-form{
+  position: relative;
+	margin: 0 auto;
+  margin-top:5%;
+  z-index:1;
+}
+}
+.signInBtn {
+  border: 3px solid black;
+  
+  color:black;
+  
+  height: 2.75em;
+  cursor: pointer;
+  font-size: 1.5em;
+  width:100%;
+}
+
+
+.signInBtn:hover,.signInBtn:focus {
+  background-color: black;
+  color:var(--brand);
+
+  transition: ease-in-out .3s;
+
+}
+
+.createAnAccount{
+  text-align:center;
+  margin-top:1em;
+  font-family: var(--medium);
+   color:rgb(142, 142, 142);
+}
+
+
+.createAnAccount a{
+ text-decoration: none;
+ color:rgb(142, 142, 142);
+}
+
+.createAnAccount a:hover{
+ color:black;
+}
+
+.loginForm{
+    width:25em;
+  height:25em;
+}
+
+.register{
+    width:25em;
+  height:36em;
+  margin-bottom:5em;
+}
+
+.error{
+  display:block;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 25em;
+  margin-top:3em;
+  line-height: 1.5em;
+  font-family: var(--medium);
+}
+
+/* form */
+
+/* @import "node_modules/bootstrap/scss/bootstrap"; */
 </style>
