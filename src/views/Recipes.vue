@@ -62,6 +62,12 @@ export default {
   padding: 10px;
 }
 
+.thirds:hover {
+  width: 33.3333%;
+  padding: 10px;
+  color: #70c599;
+}
+
 .thumbnailImages {
   width: 100%;
   height: 25em;
@@ -74,6 +80,7 @@ export default {
 .thumbnailImages:hover {
   opacity: 0.75;
   transition: 0.3s;
+    color: #70c599;
   /* background-color: var(--brand); */
 }
 
@@ -143,6 +150,7 @@ a.recipe-title {
   color: black;
   font-family: var(--medium);
   text-decoration: none;
+  padding-right:1em;
 }
 
 a.recipe-title:hover {

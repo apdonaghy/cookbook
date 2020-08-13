@@ -383,6 +383,10 @@ input:focus::-webkit-input-placeholder
   font-family: var(--medium);
 }
 
+
+a{
+  text-decoration: none;
+}
 /* form */
 
 /* @import "node_modules/bootstrap/scss/bootstrap"; */
