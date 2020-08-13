@@ -5,13 +5,18 @@
       <div class="stylized-title">
         <span>MY RECIPES</span>
       </div>
-      <div v-if="recipes.length === 0" class="firstRecipe">
-        <router-link to="/create">Create your first recipe</router-link>
+
+      <div class="firstRecipe newRecipe">
+        <router-link to="/create">
+          +
+          <br />Create a new recipe
+        </router-link>
       </div>
 
-      <div v-if="recipes.length >= 1" class="firstRecipe newRecipe">
-        <router-link to="/create">+<br>Create a new recipe</router-link>
-      </div>
+      <!-- 
+      <div v-if="showFirstRecipe" class="firstRecipe ">
+        <router-link to="/create">Create your first recipe</router-link>
+      </div>-->
 
       <div class="flex flex-wrap">
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
@@ -38,7 +43,9 @@
 export default {
   name: "recipes",
   data: function() {
-    return {};
+    return {
+      showFirstRecipe: false
+    };
   },
   beforeCreate: function() {
     document.body.className = "white";
@@ -53,9 +60,7 @@ export default {
 .thirds {
   width: 33.3333%;
   padding: 10px;
-  
 }
-
 
 .thumbnailImages {
   width: 100%;
@@ -63,13 +68,12 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom:.6em;
+  margin-bottom: 0.6em;
 }
 
-
 .thumbnailImages:hover {
-  opacity: .75;
-  transition: .3s;
+  opacity: 0.75;
+  transition: 0.3s;
   /* background-color: var(--brand); */
 }
 
@@ -124,35 +128,33 @@ export default {
 }
 
 .firstRecipe a:hover {
-  color:#70c599;
+  color: #70c599;
   text-decoration: underline;
 }
 
-.newRecipe{
+.newRecipe {
   margin-top: -2em;
- padding-bottom: 2em;
- font-size: 1.5em;
- 
+  padding-bottom: 2em;
+  font-size: 1.5em;
 }
 
-
-
-a.recipe-title{
-
-  font-size:1.5em;
-  color:black;
-    font-family: var(--medium);
-    text-decoration: none;
-   
+a.recipe-title {
+  font-size: 1.5em;
+  color: black;
+  font-family: var(--medium);
+  text-decoration: none;
 }
 
-a.recipe-title:hover{
-    text-decoration: underline;
-   color:#70c599;
+a.recipe-title:hover {
+  text-decoration: underline;
+  color: #70c599;
 }
 
-.margin-bottom{
+.margin-bottom {
   margin-bottom: 1.75em;
 }
 
+.fadeIn {
+  transition: ease 0.3s;
+}
 </style>
