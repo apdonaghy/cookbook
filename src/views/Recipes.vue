@@ -137,7 +137,7 @@ export default {
 
 
 
-a[data-v-0632d8db].recipe-title{
+a.recipe-title{
 
   font-size:1.5em;
   color:black;
@@ -146,7 +146,7 @@ a[data-v-0632d8db].recipe-title{
    
 }
 
-a[data-v-0632d8db].recipe-title:hover{
+a.recipe-title:hover{
     text-decoration: underline;
    color:#70c599;
 }
