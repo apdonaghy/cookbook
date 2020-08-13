@@ -74,17 +74,19 @@ export default {
 element.style {
 }
 
-.sidenav a[data-v-81440b78].fade {
+
+
+.sidenav a.fade {
   color: white;
   transition: 0.1s;
 }
 
-.sidenav a[data-v-81440b78].fade {
+.sidenav a:hover.fade {
   color: white;
   transition: 0.1s;
 }
 
-.closeBtn[data-v-81440b78].fade {
+.closeBtn.fade {
   color: white;
   transition: 0.1s;
 }
