@@ -79,10 +79,6 @@ export default {
   margin-bottom: 5em;
 }
 
-.center {
-  display: block;
-  margin: 0 auto;
-}
 
 .imageSpace {
   margin-top: 3em;

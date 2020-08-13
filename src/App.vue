@@ -101,11 +101,20 @@ export default {
 
 
 <style>
+*{
+  margin:0;
+  padding:0;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
 
 ::selection{
   background-color:black;
   color:white;
 }
+
+
 
 .top-space{
  height:50px;
@@ -128,13 +137,19 @@ font-family: 'NeutraMedium';
 src: url(../public/fonts/NeutraTextDemiAlt.otf);
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
 
 
-*{
-  margin:0;
-  padding:0;
-  font-size: 1em;
-  box-sizing: border-box;
+
+.center {
+  display: block;
+  margin: 0 auto;
 }
 
 h2{
@@ -178,6 +193,61 @@ body.white {
 
 p{
   font-family:'SortsMillGoudy-Regular';
+}
+
+.stylized-title{
+  display:block;
+  background:black;
+  color:white;
+  width:9.5em;
+  padding:18px 8px 13px 8px;
+  margin:0 auto;
+  text-align:center;
+  margin-top:4em;
+  margin-bottom:3em;
+  
+}
+
+.stylized-title span{
+  font-size:1.25em;
+  padding:10px 10px 5px 10px;
+  border: solid 2px white;
+  font-family: var(--medium);
+}
+
+
+.container{
+  max-width: 1250px;
+  margin: 0 auto;
+  padding-bottom: 3em;
+}
+
+@media only screen and (max-width: 1300px){
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+}
+
+@media only screen and (max-width: 1200px){
+.container{
+  max-width: 950px;
+  margin: 0 auto;
+}
+}
+
+@media only screen and (max-width: 980px){
+.container{
+  max-width: 900px;
+  margin: 0 auto;
+}
+}
+
+@media only screen and (max-width: 925px){
+.container{
+  max-width: 850px;
+  margin: 0 auto;
+}
 }
 
 
@@ -253,13 +323,14 @@ input:focus::-webkit-input-placeholder
 	margin: 0 auto;
   margin-top:5%;
   z-index:1;
+   margin-bottom:5%;
 }
 }
 .signInBtn {
   border: 3px solid black;
   
   color:black;
-  
+  background:none;
   height: 2.75em;
   cursor: pointer;
   font-size: 1.5em;
@@ -298,9 +369,8 @@ input:focus::-webkit-input-placeholder
 }
 
 .register{
-    width:25em;
+  width:25em;
   height:36em;
-  margin-bottom:5em;
 }
 
 .error{

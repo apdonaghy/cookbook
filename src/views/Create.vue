@@ -1,27 +1,29 @@
 <template>
   <div>
      <div class="top-space"></div>
+     <div class="container createContainer">
+         <div class="stylized-title create">
+        <span>CREATE A RECIPE</span>
+      </div>
     <div>
-    <h1 class="text-center">Create Recipe</h1>
+
+   
     <form id="createRecipe">
       <div>
         <input
           type="text"
-          class="form-control block"
+          class="block"
           name="recipeName"
           placeholder="Recipe title"
           aria-describedby="buttonAdd"
           v-model="recipeName"
           ref="recipeName"
         />
-        <p>Upload an image of your dish</p>
-        <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
-        <font-awesome-icon v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false" icon="spinner" class="fa-spin"></font-awesome-icon>
-        <img v-if="localProgressArray[localProgressArray.length - 1] === 100" :src="previewUrl" height="150px" />
+
 
         <input
           type="text"
-          class="form-control mt-4"
+          class=""
           name="ingredient"
           placeholder="Ingredient"
           aria-describedby="buttonAdd"
@@ -32,7 +34,7 @@
           style="cursor:pointer;"
           @click.prevent="addIngredient"
           role="button"
-          class="btn btn-sm btn-info float mb-4"
+          class="float addBtn"
         >Add ingredient+</button>
 
         <ul class="block">
@@ -46,10 +48,17 @@
             >Delete item</span>
           </li>
         </ul>
+        
+        <div class="mt mb">
+        <p>Upload an image of your dish</p>
+        <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
+        <font-awesome-icon v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false" icon="spinner" class="fa-spin block spin"></font-awesome-icon>
+        <img class="block " v-if="localProgressArray[localProgressArray.length - 1] === 100" :src="previewUrl" height="150px" />
+        </div>
 
         <textarea
           type="text"
-          class="form-control block"
+          class="block instructions"
           name="recipeInstructions"
           placeholder="Recipe instructions"
           aria-describedby="buttonAdd"
@@ -57,11 +66,12 @@
           ref="recipeInstructions"
         />
 
-        <div class="input-group-append float">
-          <button type="submit" @click.prevent="handleAdd" class="btn btn-lg btn-info" id="buttonAdd">Create Recipe</button>
+        <div class="input-group-append float"> 
+          <button type="submit" @click.prevent="handleAdd" class="signInBtn createRecipeBtn" id="buttonAdd">Create Recipe</button>
         </div>
       </div>
     </form>
+    </div>
     </div>
   </div>
 </template>
@@ -200,4 +210,55 @@ h1 {
   color: red;
   cursor: pointer;
 }
+
+.create{
+  width:12.7em
+}
+
+.createContainer{
+  max-width:35em;
+}
+
+.instructions{
+  width:100%;
+  height:10em;
+  margin-top: 3em;
+  border: 4px solid black;
+}
+
+.createRecipeBtn{
+  padding:0 1em 0 1em;
+}
+
+
+.mt{
+  padding-top: 4em;
+}
+
+textarea{
+ font-size:1.4em;
+ padding:.65em;
+ font-family: var(--paragraph);
+}
+
+.spin{
+  font-size:2em;
+}
+
+
+.addBtn{
+  background:none;
+  padding:.5em;
+  border:3px solid black;
+}
+
+.addBtn:hover{
+  background:black;
+  color:var(--brand);
+  padding:.5em;
+  border:3px solid black;
+  transition: .2s;
+}
+
+
 </style>

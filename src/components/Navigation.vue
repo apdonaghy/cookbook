@@ -32,7 +32,8 @@
             @click="openNav()"
           >&#9776;</span>
 
-          <router-link class="logo" to="/">Cookbook</router-link>
+          <router-link v-if="user" class="logo" to="/recipes">Cookbook</router-link>
+          <router-link  v-if="!user" class="logo" to="/">Cookbook</router-link>
 
           <div v-if="!user" class="flex">
             <router-link class="login" to="/login">sign in</router-link>
@@ -70,10 +71,6 @@ export default {
 };
 </script>
 <style scoped>
-.flex {
-  display: flex;
-}
-
 element.style {
 }
 
@@ -148,10 +145,10 @@ a.login:hover {
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   z-index: 2;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   /* background:rgba(); */
   background: rgba(0, 0, 0, 0.3);
 }
@@ -189,6 +186,7 @@ a.login:hover {
 .hamburger {
   font-size: 1.75em;
   line-height: 0;
+  margin-right:15px;
 }
 
 .hamburger:hover {
