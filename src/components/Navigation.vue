@@ -32,7 +32,7 @@
             @click="openNav()"
           >&#9776;</span>
 
-          <router-link v-if="user" class="logo" to="/recipes">Cookbook</router-link>
+          <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
           <router-link  v-if="!user" class="logo" to="/">Cookbook</router-link>
 
           <div v-if="!user" class="flex">
@@ -183,10 +183,14 @@ a.login:hover {
   color: black;
 }
 
+.userMargin{
+    margin-left:17px;
+
+}
+
 .hamburger {
   font-size: 1.75em;
   line-height: 0;
-  margin-right:15px;
 }
 
 .hamburger:hover {
