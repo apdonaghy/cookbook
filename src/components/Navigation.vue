@@ -242,7 +242,6 @@ a.login:hover {
 .black {
   width: 45px;
 }
-
 }
 
 

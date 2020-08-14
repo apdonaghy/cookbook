@@ -50,7 +50,7 @@
             <div class="mt mb">
               <h4>Upload an image of your dish</h4>
               <input
-                class=""
+                class="imgWidth"
                 type="file"
                 ref="recipePic"
                 accept="image/*"
@@ -203,6 +203,11 @@ export default {
 </script>
 
 <style scoped>
+
+.imgWidth{
+  max-width:15em;
+}
+
 h1 {
   margin-bottom: 1em;
 }
