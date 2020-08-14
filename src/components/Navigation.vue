@@ -38,7 +38,7 @@
           <div v-if="!user" class="flex">
             <router-link class="login" to="/login">sign in</router-link>
             <p class="padding-sm"></p>
-            <router-link class="login" to="/register">register</router-link>
+            <router-link class="login registerMobile" to="/register">register</router-link>
           </div>
           <span v-if="user" role="button" class="logout" @click="$emit('logout')">logout</span>
         </div>
@@ -73,7 +73,6 @@ export default {
 <style scoped>
 element.style {
 }
-
 
 
 .sidenav a.fade {
@@ -231,4 +230,21 @@ a.login:hover {
   padding: 10px;
   color: var(--brand);
 }
+
+.registerMobile{
+  display:inline-block;
+}
+
+@media screen and (max-width: 500px) {
+  .registerMobile{
+  display:none;
+}
+.black {
+  width: 45px;
+}
+
+}
+
+
+
 </style>

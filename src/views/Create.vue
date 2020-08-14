@@ -1,77 +1,99 @@
 <template>
   <div>
-     <div class="top-space"></div>
-     <div class="container createContainer">
-         <div class="stylized-title create">
+    <div class="top-space"></div>
+    <div class="container createContainer">
+      <div class="stylized-title create">
         <span>CREATE A RECIPE</span>
       </div>
-    <div>
-
-   
-    <form id="createRecipe">
-      <div>
-        <input
-          type="text"
-          class="block"
-          name="recipeName"
-          placeholder="Recipe title"
-          aria-describedby="buttonAdd"
-          v-model="recipeName"
-          ref="recipeName"
-        />
-
-
-        <input
-          type="text"
-          class=""
-          name="ingredient"
-          placeholder="Ingredient"
-          aria-describedby="buttonAdd"
-          v-model="ingredient"
-          ref="ingredient"
-        />
-        <button
-          style="cursor:pointer;"
-          @click.prevent="addIngredient"
-          role="button"
-          class="float addBtn"
-        >Add ingredient+</button>
-
-        <ul class="block">
-          <li v-for="(item, index) in ingredients" :key="index">
-            {{ item }}
-            <span
+      <div class="mt">
+        <form id="createRecipe">
+          <div>
+            <input
+              type="text"
+              class="block"
+              name="recipeName"
+              placeholder="Recipe title"
+              aria-describedby="buttonAdd"
+              v-model="recipeName"
+              ref="recipeName"
+            />
+            <div class="flex">
+            <input
+              type="text"
+              class
+              name="ingredient"
+              placeholder="Ingredient"
+              aria-describedby="buttonAdd"
+              v-model="ingredient"
+              ref="ingredient"
+            />
+            <button
+              style="cursor:pointer;"
+              @click.prevent="addIngredient"
               role="button"
-              class="delete"
-              v-if="ingredients.length > 0"
-              @click="deleteIngredient(index)"
-            >Delete item</span>
-          </li>
-        </ul>
-        
-        <div class="mt mb">
-        <p>Upload an image of your dish</p>
-        <input type="file" ref="recipePic" accept="image/*" @change="recipePicChosen" />
-        <font-awesome-icon v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false" icon="spinner" class="fa-spin block spin"></font-awesome-icon>
-        <img class="block " v-if="localProgressArray[localProgressArray.length - 1] === 100" :src="previewUrl" height="150px" />
-        </div>
+              class="float addBtn addBtnWidth"
+            >Add ingredient+</button>
+            </div>
 
-        <textarea
-          type="text"
-          class="block instructions"
-          name="recipeInstructions"
-          placeholder="Recipe instructions"
-          aria-describedby="buttonAdd"
-          v-model="recipeInstructions"
-          ref="recipeInstructions"
-        />
+            <ul class="block">
+              <li v-for="(item, index) in ingredients" :key="index" class="ingredientLi">
+                {{ item }}
+                <span
+                  role="button"
+                  class="delete"
+                  v-if="ingredients.length > 0"
+                  @click="deleteIngredient(index)"
+                >Delete</span>
+              </li>
+            </ul>
 
-        <div class="input-group-append float"> 
-          <button type="submit" @click.prevent="handleAdd" class="signInBtn createRecipeBtn" id="buttonAdd">Create Recipe</button>
-        </div>
+            <div class="mt mb">
+              <h4>Upload an image of your dish</h4>
+              <input
+                class=""
+                type="file"
+                ref="recipePic"
+                accept="image/*"
+                @change="recipePicChosen"
+              />
+              <font-awesome-icon
+                v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false"
+                icon="spinner"
+                class="fa-spin block spin"
+              ></font-awesome-icon>
+              <img
+                class="block"
+                v-if="localProgressArray[localProgressArray.length - 1] === 100"
+                :src="previewUrl"
+                height="150px"
+              />
+            </div>
+
+             <div class="mt-2"> 
+            <label for="instructions"><h4>Recipe</h4></label>
+            <textarea
+              type="text"
+              class="block instructions"
+              name="recipeInstructions"
+              placeholder="Recipe instructions"
+              aria-describedby="buttonAdd"
+              v-model="recipeInstructions"
+              ref="recipeInstructions"
+              id="instructions"
+            />
+            </div>
+
+            <div class="input-group-append float">
+              <button
+                type="submit"
+                @click.prevent="handleAdd"
+                class="signInBtn createRecipeBtn"
+                id="buttonAdd"
+              >Create Recipe</button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-    </div>
     </div>
   </div>
 </template>
@@ -93,21 +115,19 @@ export default {
       showSpinner: false
     };
   },
-     beforeCreate: function() {
-        document.body.className = 'white';
-    },
+  beforeCreate: function() {
+    document.body.className = "white";
+  },
   props: ["user", "recipes"],
   components: {
     FontAwesomeIcon
   },
   methods: {
     addIngredient: function() {
-
       if (this.ingredient !== "") {
         this.ingredients.push(this.ingredient);
         this.ingredient = null;
         this.$refs.ingredient.focus();
-      
       } else {
         console.log("error");
       }
@@ -116,9 +136,7 @@ export default {
       this.$delete(this.ingredients, index);
     },
 
-
     handleAdd: function() {
-
       if (this.recipeName !== "") {
         this.$emit("addRecipe", {
           recipeName: this.recipeName,
@@ -157,9 +175,9 @@ export default {
       imgFolder.put(this.image);
 
       this.imageUrlName = removeSpaces(this.image.name);
-      
-      let progressArray = []
-      this.localProgressArray = progressArray
+
+      let progressArray = [];
+      this.localProgressArray = progressArray;
 
       imgFolder.put(this.image).on(
         Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -185,7 +203,6 @@ export default {
 </script>
 
 <style scoped>
-
 h1 {
   margin-bottom: 1em;
 }
@@ -199,7 +216,7 @@ h1 {
   float: right;
 }
 .centered {
-  width: 25em;
+  max-width: 25em;
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -211,54 +228,73 @@ h1 {
   cursor: pointer;
 }
 
-.create{
-  width:12.7em
+.create {
+  width: 12.7em;
 }
 
-.createContainer{
-  max-width:35em;
+.createContainer {
+  max-width: 35em;
+  padding: 20px;
+  margin-bottom: 5%;
 }
 
-.instructions{
-  width:100%;
-  height:10em;
-  margin-top: 3em;
+.instructions {
+  width: 100%;
+  height: 10em;
   border: 4px solid black;
 }
 
-.createRecipeBtn{
-  padding:0 1em 0 1em;
+.createRecipeBtn {
+  padding: 0 1em 0 1em;
 }
 
+.mt {
+  padding-top: 2em;
+}
 
-.mt{
+.mt-2 {
   padding-top: 4em;
 }
 
-textarea{
- font-size:1.4em;
- padding:.65em;
- font-family: var(--paragraph);
+textarea {
+  font-size: 1.4em;
+  padding: 0.65em;
+  font-family: var(--paragraph);
 }
 
-.spin{
-  font-size:2em;
+.spin {
+  font-size: 2em;
 }
 
-
-.addBtn{
-  background:none;
-  padding:.5em;
-  border:3px solid black;
+.addBtn {
+  background: none;
+  padding: 0.5em;
+  border: 3px solid black;
 }
 
-.addBtn:hover{
-  background:black;
-  color:var(--brand);
-  padding:.5em;
-  border:3px solid black;
-  transition: .2s;
+.addBtn:hover {
+  background: black;
+  color: var(--brand);
+  padding: 0.5em;
+  padding-bottom:.3em;
+  border: 3px solid black;
+  transition: 0.2s;
 }
 
+.addBtnWidth{
+  width:12em;
+  height:2.6em;
+  padding-bottom:.3em;
+}
+
+.ingredientLi{
+  font-family: var(--medium);
+  font-size: 1.1em;
+  line-height: 1.3em;;
+}
+
+.delete:hover, .delete:focus{
+  text-decoration: underline;
+}
 
 </style>

@@ -21,15 +21,15 @@
       </h2>
       <p class="largeParagraphText">
         This app can help you store all of your recipes and food creations with
-        <a
+        <a class="underline"
           href="https://vuejs.org/"
         >Vue.js</a>
         and
-        <a href="https://firebase.google.com">Firebase</a>.
+        <a class="underline" href="https://firebase.google.com">Firebase</a>.
       </p>
       <p class="largeParagraphText">
         Cookbook was created in the summer quarter of 2020 for the
-        <a href="https://www.seattleu.edu/ncs/web-development/">WATS program</a> at Seattle University. It uses firebase to store user data and provides a content management system for users to upload and store recipes and access them from any device. The design is hand-coded and was a blast to create. Hope you enjoy it!
+        <a class="underline" href="https://www.seattleu.edu/ncs/web-development/">WATS program</a> at Seattle University. It uses firebase to store user data and provides a content management system for users to upload and store recipes and access them from any device. The design is hand-coded and was a blast to create. Hope you enjoy it!
       </p>
       <!-- <div class="flex">
       <router-link class="textCenter" to="/login" v-if="!user">Log In</router-link>
