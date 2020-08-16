@@ -152,6 +152,18 @@ export default {
       }
     },
     recipePicChosen: function(event) {
+
+      function changeFileName(str) {
+        if (str.indexOf('.jpg') > -1){
+        return str.replace(/\.jpg$/, '_700x933.jpg');
+      } else if(str.indexOf('.png') > -1){
+        return str.replace(/\.png$/, '_700x933.png');
+
+      }else{
+        console.log("this is probably a svg")
+      }
+      }
+
       function removeSpaces(str) {
         return str.replace(/ /g, "_");
       }
@@ -174,7 +186,7 @@ export default {
       );
       imgFolder.put(this.image);
 
-      this.imageUrlName = removeSpaces(this.image.name);
+      this.imageUrlName = changeFileName(removeSpaces(this.image.name));
 
       let progressArray = [];
       this.localProgressArray = progressArray;
