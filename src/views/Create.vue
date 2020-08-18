@@ -6,7 +6,7 @@
         <span>CREATE A RECIPE</span>
       </div>
       <div class="mt">
-        <form id="createRecipe">
+        <form id="createRecipe" autocomplete="off">
           <div>
             <input
               type="text"
