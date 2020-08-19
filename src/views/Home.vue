@@ -80,7 +80,6 @@ export default {
   max-width: 55em;
   margin: 0 auto;
   margin-top: 3em;
-  margin-bottom: 5em;
   padding:15px;
 }
 

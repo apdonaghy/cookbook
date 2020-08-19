@@ -30,7 +30,6 @@
               <button
                 style="cursor:pointer;"
                 @click.prevent="addIngredient"
-                role="button"
                 class="float addBtn addBtnWidth"
               >Add ingredient+</button>
             </div>

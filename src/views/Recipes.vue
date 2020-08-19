@@ -13,11 +13,6 @@
         </router-link>
       </div>
 
-      <!-- 
-      <div v-if="showFirstRecipe" class="firstRecipe ">
-        <router-link to="/create">Create your first recipe</router-link>
-      </div>-->
-
       <div class="flex flex-wrap">
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
           <router-link :to="'/recipe/' + user.uid + '/' + item.id">
@@ -63,8 +58,6 @@ export default {
 }
 
 .thirds:hover {
-  width: 33.3333%;
-  padding: 10px;
   color: #70c599;
 }
 
@@ -80,7 +73,7 @@ export default {
 .thumbnailImages:hover {
   opacity: 0.75;
   transition: 0.3s;
-    color: #70c599;
+  color: #70c599;
   /* background-color: var(--brand); */
 }
 
@@ -120,6 +113,33 @@ export default {
   }
 }
 
+@media only screen and (max-width: 500px) {
+    .thirds {
+    width: 100%;
+    padding: 10px;
+  }
+  .flex {
+    display: block;
+  }
+  .thumbnailImages {
+    height: 27em;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+
+  .thumbnailImages {
+    height: 24em;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+
+  .thumbnailImages {
+    height: 22em;
+  }
+}
+
 .firstRecipe {
   width: 10em;
   font-size: 5em;
@@ -150,7 +170,7 @@ a.recipe-title {
   color: black;
   font-family: var(--medium);
   text-decoration: none;
-  padding-right:1em;
+  padding-right: 1em;
 }
 
 a.recipe-title:hover {
@@ -159,7 +179,14 @@ a.recipe-title:hover {
 }
 
 .margin-bottom {
-  margin-bottom: 1.75em;
+  margin-bottom: 3em;
+}
+
+@media only screen and (max-width: 900px) {
+
+.margin-bottom {
+  margin-bottom: 2em;
+}
 }
 
 .fadeIn {
