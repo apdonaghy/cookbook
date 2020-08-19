@@ -10,7 +10,7 @@
           <div>
             <input
               type="text"
-              class="block"
+              class="block createInput"
               name="recipeName"
               placeholder="Recipe title"
               aria-describedby="buttonAdd"
@@ -18,39 +18,42 @@
               ref="recipeName"
             />
             <div class="flex">
-            <input
-              type="text"
-              class
-              name="ingredient"
-              placeholder="Ingredient"
-              aria-describedby="buttonAdd"
-              v-model="ingredient"
-              ref="ingredient"
-            />
-            <button
-              style="cursor:pointer;"
-              @click.prevent="addIngredient"
-              role="button"
-              class="float addBtn addBtnWidth"
-            >Add ingredient+</button>
+              <input
+                type="text"
+                class="createInput"
+                name="ingredient"
+                placeholder="Ingredient"
+                aria-describedby="buttonAdd"
+                v-model="ingredient"
+                ref="ingredient"
+              />
+              <button
+                style="cursor:pointer;"
+                @click.prevent="addIngredient"
+                role="button"
+                class="float addBtn addBtnWidth"
+              >Add ingredient+</button>
             </div>
 
             <ul class="block">
               <li v-for="(item, index) in ingredients" :key="index" class="ingredientLi">
                 {{ item }}
                 <span
+                  tabindex=0
                   role="button"
                   class="delete"
                   v-if="ingredients.length > 0"
+                  @keyup.enter="deleteIngredient(index)"
                   @click="deleteIngredient(index)"
                 >Delete</span>
               </li>
             </ul>
 
             <div class="mt mb">
-              <h4>Upload an image of your dish</h4>
+              <span tabindex=0 @click="openImage" @keyup.enter="openImage" class="upload" role="button"><font-awesome-icon icon="upload"/> Upload an image or take a pic of your dish</span>
               <input
                 class="imgWidth"
+                style="display:none"
                 type="file"
                 ref="recipePic"
                 accept="image/*"
@@ -69,23 +72,26 @@
               />
             </div>
 
-             <div class="mt-2"> 
-            <label for="instructions"><h4>Recipe</h4></label>
-            <textarea
-              type="text"
-              class="block instructions"
-              name="recipeInstructions"
-              placeholder="Recipe instructions"
-              aria-describedby="buttonAdd"
-              v-model="recipeInstructions"
-              ref="recipeInstructions"
-              id="instructions"
-            />
+            <div class="mt-2">
+              <label for="instructions">
+                <h4>Recipe</h4>
+              </label>
+              <textarea
+                type="text"
+                class="block instructions"
+                name="recipeInstructions"
+                placeholder="Recipe instructions"
+                aria-describedby="buttonAdd"
+                v-model="recipeInstructions"
+                ref="recipeInstructions"
+                id="instructions"
+              />
             </div>
 
             <div class="input-group-append float">
               <button
                 type="submit"
+                @keyup.enter="handleAdd"
                 @click.prevent="handleAdd"
                 class="signInBtn createRecipeBtn"
                 id="buttonAdd"
@@ -135,7 +141,9 @@ export default {
     deleteIngredient: function(index) {
       this.$delete(this.ingredients, index);
     },
-
+    openImage: function() {
+      this.$refs.recipePic.click();
+    },
     handleAdd: function() {
       if (this.recipeName !== "") {
         this.$emit("addRecipe", {
@@ -152,16 +160,14 @@ export default {
       }
     },
     recipePicChosen: function(event) {
-
       function changeFileName(str) {
-        if (str.indexOf('.jpg') > -1){
-        return str.replace(/\.jpg$/, '_700x933.jpg');
-      } else if(str.indexOf('.png') > -1){
-        return str.replace(/\.png$/, '_700x933.png');
-
-      }else{
-        console.log("this is probably a svg")
-      }
+        if (str.indexOf(".jpg") > -1) {
+          return str.replace(/\.jpg$/, "_700x933.jpg");
+        } else if (str.indexOf(".png") > -1) {
+          return str.replace(/\.png$/, "_700x933.png");
+        } else {
+          console.log("this is probably a svg");
+        }
       }
 
       function removeSpaces(str) {
@@ -215,9 +221,8 @@ export default {
 </script>
 
 <style scoped>
-
-.imgWidth{
-  max-width:15em;
+.imgWidth {
+  max-width: 15em;
 }
 
 h1 {
@@ -258,7 +263,7 @@ h1 {
 .instructions {
   width: 100%;
   height: 10em;
-  border: 4px solid black;
+  border: 3px solid black;
 }
 
 .createRecipeBtn {
@@ -289,29 +294,71 @@ textarea {
   border: 3px solid black;
 }
 
-.addBtn:hover {
+.addBtn:hover,
+.addBtn:focus {
   background: black;
   color: var(--brand);
-  padding: 0.5em;
-  padding-bottom:.3em;
-  border: 3px solid black;
   transition: 0.2s;
 }
 
-.addBtnWidth{
-  width:12em;
-  height:2.6em;
-  padding-bottom:.3em;
+.addBtnWidth {
+  width: 12em;
+  height: 2.6em;
+  padding-bottom: 0.3em;
 }
 
-.ingredientLi{
+.ingredientLi {
   font-family: var(--medium);
   font-size: 1.1em;
-  line-height: 1.3em;;
+  line-height: 1.3em;
 }
 
-.delete:hover, .delete:focus{
+.delete:hover,
+.delete:focus {
   text-decoration: underline;
 }
 
+.upload {
+  color: black;
+  border: solid 3px black;
+  padding: 0.75em;
+  font-family: var(--medium);
+  border-radius: 99em;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.5em;
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  display:block;
+}
+
+.upload:hover,
+.upload:focus {
+  background: black;
+  color: var(--brand);
+  transition: 0.3s;
+}
+
+@media only screen and (max-width: 600px) {
+  .upload {
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .createInput {
+    font-size: 1.5em;
+  }
+  .addBtn {
+    background: none;
+    font-size: 0.92em;
+    border: 3px solid black;
+    width: 15em;
+  }
+  .upload {
+    font-size: 1em;
+    padding: 0.5em;
+  }
+}
 </style>

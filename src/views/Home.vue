@@ -2,8 +2,8 @@
   <div class="background">
     <div class="top-space"></div>
     <img
-      class="center imageSpace"
-      src="../../public/images/onion.png"
+      class="center imageSpace svgImg"
+      src="../../public/images/onion.svg"
       alt="illustraion of an onion"
     />
 
@@ -57,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+.svgImg{
+  width:7em;
+}
+
 .largeParagraphText {
   font-size: 1.75em;
   margin-bottom: 1em;

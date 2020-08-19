@@ -195,7 +195,7 @@ a.login:hover {
 }
 
 .hamburger:hover {
-  color: #efb862;
+  color: white;
   transition: 0.3s;
 }
 
