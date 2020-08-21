@@ -87,9 +87,8 @@ element.style {
 }
 
 .sidenav a.fade {
-  color: white;
+  display:none;
   transition: 0.1s;
-  outline:white;
 }
 
 .sidenav a:hover.fade {
