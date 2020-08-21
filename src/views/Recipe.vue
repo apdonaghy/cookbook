@@ -21,7 +21,7 @@
         </transition>
 
         <h2>{{ item.recipeName }}</h2>
-        <img class="center picSize" :src="item.imageUrlName" />
+        <img class="center picSize" :src="item.imageUrlName" :alt="item.recipeName"/>
         <h3 class="text-left margin-top recipeTags">Ingredients</h3>
         <ul class="ingredientsList">
           <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>

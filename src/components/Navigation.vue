@@ -1,46 +1,58 @@
 <template>
   <div>
     <div @click="closeNav" :class="{overlay: isActive}"></div>
-    <nav>
-      <div v-if="user" class="sidenav" :class="{activeNav: isActive}">
-        <font-awesome-icon
-          class="closeBtn"
-          :class="{fade: !isActive}"
-          role="button"
-          icon="times"
-          @click="closeNav"
-        ></font-awesome-icon>
-        <router-link :class="{fade: !isActive}" to="/">
-          <span @click="closeNav">About</span>
-        </router-link>
-        <router-link :class="{fade: !isActive}" to="/recipes">
-          <span @click="closeNav">My recipes</span>
-        </router-link>
-        <router-link :class="{fade: !isActive}" to="/create">
-          <span @click="closeNav">Create a recipe</span>
-        </router-link>
-      </div>
 
+    <nav>
       <div class="navbar">
         <div class="flex space-between navContainer">
           <span v-if="!user" class="hamburger black">&#9776;</span>
           <span
             v-if="user"
+            tabindex="0"
             class="hamburger"
             role="button"
             style="cursor:pointer"
             @click="openNav()"
+            @keyup.enter="openNav()"
           >&#9776;</span>
 
+          <div v-if="user" class="sidenav" :class="{activeNav: isActive}">
+            <font-awesome-icon
+              tabindex="0"
+              class="closeBtn"
+              :class="{fade: !isActive}"
+              role="button"
+              icon="times"
+              @click="closeNav"
+              @keyup.enter="closeNav"
+            ></font-awesome-icon>
+            <router-link :class="{fade: !isActive}" to="/">
+              <span @click="closeNav" @keyup.enter="closeNav" tabindex="0">About</span>
+            </router-link>
+            <router-link :class="{fade: !isActive}" to="/recipes">
+              <span @click="closeNav" tabindex="0" @keyup.enter="closeNav">My recipes</span>
+            </router-link>
+            <router-link :class="{fade: !isActive}" to="/create">
+              <span tabindex="0" @keyup.tab="closeNav" @click="closeNav" @keyup.enter="closeNav">Create a recipe</span>
+            </router-link>
+          </div>
+
           <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
-          <router-link  v-if="!user" class="logo" to="/">Cookbook</router-link>
+          <router-link v-if="!user" class="logo" to="/">Cookbook</router-link>
 
           <div v-if="!user" class="flex">
             <router-link class="login" to="/login">sign in</router-link>
             <p class="padding-sm"></p>
             <router-link class="login registerMobile" to="/register">register</router-link>
           </div>
-          <span v-if="user" role="button" class="logout" @click="$emit('logout')">logout</span>
+          <span
+            v-if="user"
+            tabindex="0"
+            role="button"
+            class="logout"
+            @keyup.enter="$emit('logout')"
+            @click="$emit('logout')"
+          >logout</span>
         </div>
       </div>
     </nav>
@@ -74,10 +86,10 @@ export default {
 element.style {
 }
 
-
 .sidenav a.fade {
   color: white;
   transition: 0.1s;
+  outline:white;
 }
 
 .sidenav a:hover.fade {
@@ -89,6 +101,8 @@ element.style {
   color: white;
   transition: 0.1s;
 }
+
+
 
 .space-between {
   justify-content: space-between;
@@ -103,7 +117,7 @@ a.logo {
 }
 
 a.logo:hover {
-  color:white;
+  color: white;
 }
 a.login {
   text-decoration: none;
@@ -184,9 +198,8 @@ a.login:hover {
   color: black;
 }
 
-.userMargin{
-    margin-left:17px;
-
+.userMargin {
+  margin-left: 17px;
 }
 
 .hamburger {
@@ -197,6 +210,12 @@ a.login:hover {
 .hamburger:hover {
   color: white;
   transition: 0.3s;
+}
+
+.hamburger:focus {
+  border: 2px solid dodgerblue;
+  padding: 0.4em 0 0.4em 0;
+  width:.9em;
 }
 
 .black {
@@ -231,19 +250,16 @@ a.login:hover {
   color: var(--brand);
 }
 
-.registerMobile{
-  display:inline-block;
+.registerMobile {
+  display: inline-block;
 }
 
 @media screen and (max-width: 500px) {
-  .registerMobile{
-  display:none;
+  .registerMobile {
+    display: none;
+  }
+  .black {
+    width: 45px;
+  }
 }
-.black {
-  width: 45px;
-}
-}
-
-
-
 </style>

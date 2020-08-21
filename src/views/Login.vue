@@ -25,6 +25,7 @@
           type="password"
           placeholder="Password"
           v-model="password"
+          id="password"
         />
       </section>
       <div class="form-group text-right mb-0">

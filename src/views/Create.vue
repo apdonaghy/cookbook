@@ -8,6 +8,7 @@
       <div class="mt">
         <form id="createRecipe" autocomplete="off">
           <div>
+            <label style="display:none" for="recipeName">Recipe Name</label>
             <input
               type="text"
               class="block createInput"
@@ -16,8 +17,10 @@
               aria-describedby="buttonAdd"
               v-model="recipeName"
               ref="recipeName"
+              id="recipeName"
             />
             <div class="flex">
+               <label style="display:none" for="ingredient">Ingredient</label>
               <input
                 type="text"
                 class="createInput"
@@ -26,6 +29,7 @@
                 aria-describedby="buttonAdd"
                 v-model="ingredient"
                 ref="ingredient"
+                id="ingredient"
               />
               <button
                 style="cursor:pointer;"
@@ -50,12 +54,14 @@
 
             <div class="mt mb">
               <button tabindex=0 @click.prevent="openImage" @keyup.enter.prevent="openImage" class="upload" role="button"><font-awesome-icon icon="upload"/> Upload an image or take a pic of your dish</button>
+              <label style="display:none" for="imageUpload">Image Upload</label>
               <input
                 class="imgWidth"
                 style="display:none"
                 type="file"
                 ref="recipePic"
                 accept="image/*"
+                id="imageUpload"
                 @change="recipePicChosen"
               />
               <font-awesome-icon
