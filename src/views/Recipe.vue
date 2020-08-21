@@ -9,11 +9,12 @@
 
       <div v-for="item in actualRecipe" :key="item.id">
         <transition name="fade">
-          <div @click="show = !show" v-if="show" class="higher">
+          <div tabindex="0" role="button" @click="show = !show" @keyup.enter="show = !show" v-if="show" class="higher">
             <button
               class="delete confirm"
               title="Confirm Delete"
               @click="$emit('deleterecipe', item.id)"
+              @keydown.tab="show = !show"
             >
               <font-awesome-icon icon="trash"></font-awesome-icon>Confirm Delete
             </button>

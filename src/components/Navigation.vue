@@ -12,8 +12,8 @@
             class="hamburger"
             role="button"
             style="cursor:pointer"
-            @click="openNav()"
-            @keyup.enter="openNav()"
+            @click="openNav"
+            @keyup.enter="openNav"
           >&#9776;</span>
 
           <div v-if="user" class="sidenav" :class="{activeNav: isActive}">
@@ -26,15 +26,23 @@
               @click="closeNav"
               @keyup.enter="closeNav"
             ></font-awesome-icon>
-            <router-link :class="{fade: !isActive}" to="/">
-              <span @click="closeNav" @keyup.enter="closeNav" tabindex="0">About</span>
+        
+            <router-link to="/">
+              <transition name="fade">
+              <span v-if="isActive" @click="closeNav" @keyup.enter="closeNav" tabindex="0">About</span>
+              </transition>
+        </router-link>
+            <router-link to="/recipes">
+                 <transition name="fade">
+              <span v-if="isActive" @click="closeNav" tabindex="0" @keyup.enter="closeNav" style="white-space: nowrap;">My recipes</span>
+            </transition>
             </router-link>
-            <router-link :class="{fade: !isActive}" to="/recipes">
-              <span @click="closeNav" tabindex="0" @keyup.enter="closeNav">My recipes</span>
+            <router-link to="/create">
+               <transition name="fade">
+              <span v-if="isActive" tabindex="0" @keydown.tab="closeNav" @click="closeNav" @keyup.enter="closeNav" style="white-space: nowrap;">Create a recipe</span>
+               </transition>
             </router-link>
-            <router-link :class="{fade: !isActive}" to="/create">
-              <span tabindex="0" @keyup.tab="closeNav" @click="closeNav" @keyup.enter="closeNav">Create a recipe</span>
-            </router-link>
+      
           </div>
 
           <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
@@ -83,25 +91,17 @@ export default {
 };
 </script>
 <style scoped>
-element.style {
+
+.fade-enter-active{
+  transition: opacity 1s;
 }
 
-.sidenav a.fade {
-  display:none;
-  transition: 0.1s;
+.fade-leave-active {
+  transition: opacity .2s;
 }
-
-.sidenav a:hover.fade {
-  color: white;
-  transition: 0.1s;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
-
-.closeBtn.fade {
-  color: white;
-  transition: 0.1s;
-}
-
-
 
 .space-between {
   justify-content: space-between;
