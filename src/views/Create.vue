@@ -49,7 +49,7 @@
             </ul>
 
             <div class="mt mb">
-              <span tabindex=0 @click="openImage" @keyup.enter="openImage" class="upload" role="button"><font-awesome-icon icon="upload"/> Upload an image or take a pic of your dish</span>
+              <button tabindex=0 @click.prevent="openImage" @keyup.enter.prevent="openImage" class="upload" role="button"><font-awesome-icon icon="upload"/> Upload an image or take a pic of your dish</button>
               <input
                 class="imgWidth"
                 style="display:none"
@@ -338,6 +338,12 @@ textarea {
   color: var(--brand);
   transition: 0.3s;
 }
+
+.upload:focus{
+  outline:none;
+  border: solid 2px dodgerblue;
+}
+
 
 @media only screen and (max-width: 600px) {
   .upload {
