@@ -3,7 +3,7 @@
     <div class="top-space"></div>
     <div class="container createContainer">
       <div class="stylized-title create">
-        <span>CREATE A RECIPE</span>
+        <h1>CREATE A RECIPE</h1>
       </div>
       <div class="mt">
         <form id="createRecipe" autocomplete="off">
@@ -230,10 +230,6 @@ export default {
   max-width: 15em;
 }
 
-h1 {
-  margin-bottom: 1em;
-}
-
 .block {
   display: block;
   margin-bottom: 2em;
@@ -347,7 +343,7 @@ textarea {
 
 .upload:focus{
   outline:none;
-  border: solid 2px dodgerblue;
+  border: solid 3px dodgerblue;
 }
 
 

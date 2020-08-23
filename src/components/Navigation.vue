@@ -26,23 +26,37 @@
               @click="closeNav"
               @keyup.enter="closeNav"
             ></font-awesome-icon>
-        
-            <router-link to="/">
-              <transition name="fade">
-              <span v-if="isActive" @click="closeNav" @keyup.enter="closeNav" tabindex="0">About</span>
-              </transition>
-        </router-link>
-            <router-link to="/recipes">
-                 <transition name="fade">
-              <span v-if="isActive" @click="closeNav" tabindex="0" @keyup.enter="closeNav" style="white-space: nowrap;">My recipes</span>
+
+            <transition name="fade">
+              <div v-if="isActive" @click="closeNav" @keyup.enter="closeNav" tabindex="-1">
+                <router-link tag="a" to="/">About</router-link>
+              </div>
             </transition>
-            </router-link>
-            <router-link to="/create">
-               <transition name="fade">
-              <span v-if="isActive" tabindex="0" @keydown.tab="closeNav" @click="closeNav" @keyup.enter="closeNav" style="white-space: nowrap;">Create a recipe</span>
-               </transition>
-            </router-link>
-      
+
+            <transition name="fade">
+              <div
+                v-if="isActive"
+                @click="closeNav"
+                tabindex="-1"
+                @keyup.enter="closeNav"
+                style="white-space: nowrap;"
+              >
+                <router-link tag="a" to="/recipes">My recipes</router-link>
+              </div>
+            </transition>
+
+            <transition name="fade">
+              <div
+                v-if="isActive"
+                tabindex="-1"
+                @keydown.tab="closeNav"
+                @click="closeNav"
+                @keyup.enter="closeNav"
+                style="white-space: nowrap;"
+              >
+                <router-link to="/create">Create a recipe</router-link>
+              </div>
+            </transition>
           </div>
 
           <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
@@ -91,13 +105,12 @@ export default {
 };
 </script>
 <style scoped>
-
-.fade-enter-active{
+.fade-enter-active {
   transition: opacity 1s;
 }
 
 .fade-leave-active {
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -193,7 +206,7 @@ a.login:hover {
   transition: 0.1s;
 }
 
-.sidenav a:hover {
+.sidenav a:hover, .sidenav a:focus {
   color: black;
 }
 
@@ -214,7 +227,7 @@ a.login:hover {
 .hamburger:focus {
   border: 2px solid dodgerblue;
   padding: 0.4em 0 0.4em 0;
-  width:.9em;
+  width: 0.9em;
 }
 
 .black {

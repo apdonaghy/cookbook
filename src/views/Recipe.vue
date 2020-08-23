@@ -4,7 +4,7 @@
 
     <div class="container recipeContainer">
       <div class="stylized-title recipe">
-        <span>RECIPE</span>
+        <h1>RECIPE</h1>
       </div>
 
       <div v-for="item in actualRecipe" :key="item.id">
@@ -66,10 +66,11 @@ export default {
   },
   props: ["user", "recipes"],
   mounted() {
+
+    // this is where I get the user data from the database for the specific user, using the userID that I'm taking from the route
     db.collection("users")
       .doc(this.userID)
       .collection("recipes")
-      // .doc(this.recipiesID)
       .onSnapshot(snapshot => {
         const snapData = [];
         snapshot.forEach(doc => {
@@ -81,6 +82,8 @@ export default {
             imageUrlName: doc.data().imageUrlName
           });
         });
+        
+        // this is where I get the unique recipe data by taking the specific user data I just pushed to snapData and then look for the recipe with the same id as the recipesID from the route and then push that to a local array called "actualRecipe." Then I use that array to loop through for the content of each recipe page.
         this.localRecipe = snapData;
         for (let recipe in this.localRecipe) {
           if (this.localRecipe[recipe].id === this.recipesID) {

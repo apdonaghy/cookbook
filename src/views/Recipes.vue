@@ -3,7 +3,7 @@
     <div class="container">
       <div class="top-space"></div>
       <div class="stylized-title">
-        <span>MY RECIPES</span>
+        <h1>MY RECIPES</h1>
       </div>
 
       <div class="firstRecipe newRecipe">
@@ -15,7 +15,7 @@
 
       <div class="flex flex-wrap">
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
-          <router-link :to="'/recipe/' + user.uid + '/' + item.id">
+          <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink">
             <div
               role="img"
               :aria-label="`${item.recipeName}`"
@@ -23,10 +23,10 @@
               :style="{backgroundImage:`url(${ item.imageUrlName })`}"
             ></div>
 
-            <router-link
+            <span
               class="recipe-title"
               :to="'/recipe/' + user.uid + '/' + item.id"
-            >{{item.recipeName}}</router-link>
+            >{{item.recipeName}}</span>
           </router-link>
         </div>
       </div>
@@ -57,10 +57,6 @@ export default {
   padding: 10px;
 }
 
-.thirds:hover {
-  color: #70c599;
-}
-
 .thumbnailImages {
   width: 100%;
   height: 25em;
@@ -73,8 +69,13 @@ export default {
 .thumbnailImages:hover {
   opacity: 0.75;
   transition: 0.3s;
-  color: #70c599;
+ 
   /* background-color: var(--brand); */
+}
+
+#thumbnailLink span:hover{
+   color: #70c599;
+   text-decoration: underline;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -165,7 +166,7 @@ export default {
   font-size: 1.5em;
 }
 
-a.recipe-title {
+.recipe-title {
   font-size: 1.5em;
   color: black;
   font-family: var(--medium);
@@ -173,9 +174,9 @@ a.recipe-title {
   padding-right: 1em;
 }
 
-a.recipe-title:hover {
-  text-decoration: underline;
-  color: #70c599;
+.recipe-title:hover {
+  /* text-decoration: underline;
+  color: #70c599; */
 }
 
 .margin-bottom {

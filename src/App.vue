@@ -1,9 +1,12 @@
 <template>
   <div id="app">
+    <!-- this is where I add the navigation component so that it's in every route -->
     <Navigation :user="user" @logout="logout" />
+
+    <!-- global methods and data properties -->
     <router-view
       class="container"
-      :user="user"
+      :user="user" 
       :recipes="recipes"
       :error="error"
       @logout="logout"
@@ -36,6 +39,7 @@ export default {
           this.$router.push("/login");
         });
     },
+    // this method pushes the recipe to the database which is emmited from the "create a recipe" page
     addRecipe: function(payload) {
       db.collection("users")
         .doc(this.user.uid)
@@ -44,6 +48,7 @@ export default {
           recipeName: payload.recipeName,
           ingredients: payload.ingredients,
           recipeInstructions: payload.recipeInstructions,
+          // this is a reference to the user uploaded image that is actually in the storage bucket.
           imageUrlName:
             "https://firebasestorage.googleapis.com/v0/b/cookbook-fa062.appspot.com/o/images%2F" +
             payload.imageUrlName +
@@ -52,6 +57,7 @@ export default {
         });
       this.$router.push("/recipes");
     },
+    // deletes recipe from database
     deleterecipe: function(payload) {
       db.collection("users")
         .doc(this.user.uid)
@@ -62,6 +68,7 @@ export default {
     }
   },
   mounted() {
+    // this collects data from the database if recipes already exist
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user;
@@ -77,10 +84,9 @@ export default {
                 recipeInstructions: doc.data().recipeInstructions,
                 ingredients: doc.data().ingredients,
                 imageUrlName: doc.data().imageUrlName
-                // imageUrl: doc.data().imageUrl
               });
             });
-            // alphabetical org
+            // sorts recipes on the "recipes" page alphabetically
             this.recipes = snapData.sort((a, b) => {
               if (a.recipeName.toLowerCase() < b.recipeName.toLowerCase()) {
                 return -1;
@@ -105,6 +111,12 @@ export default {
   padding: 0;
   font-size: 1em;
   box-sizing: border-box;
+}
+
+h1{
+  font-size:1em;
+  padding:0;
+  margin-bottom:0;
 }
 
 ::selection {
@@ -195,18 +207,19 @@ p {
   background: black;
   color: white;
   width: 9.5em;
-  padding: 18px 8px 13px 8px;
+  padding: 7px;
   margin: 0 auto;
   text-align: center;
   margin-top: 4em;
   margin-bottom: 3em;
 }
 
-.stylized-title span {
+.stylized-title h1{
   font-size: 1.25em;
   padding: 10px 10px 5px 10px;
   border: solid 2px white;
   font-family: var(--medium);
+  margin-bottom: 0px;
 }
 
 .container {
@@ -271,10 +284,12 @@ input[type="password"]:focus {
   background-image: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  outline:none;
+  
   box-shadow: none;
   font-family: var(--medium);
   color: black;
-  border-bottom: 3px solid gray;
+  border-bottom: solid 3px lightgray;
   transition: 0.3s;
 }
 
