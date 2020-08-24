@@ -62,7 +62,7 @@
           <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
           <router-link v-if="!user" class="logo" to="/">Cookbook</router-link>
 
-          <div v-if="!user" class="flex">
+          <div v-if="!user" class="flex" style="align-items: center;">
             <router-link class="login" to="/login">sign in</router-link>
             <p class="padding-sm"></p>
             <router-link class="login registerMobile" to="/register">register</router-link>
@@ -147,7 +147,7 @@ a.login:hover {
 }
 
 .padding-sm {
-  padding: 0 4px 0 4px;
+  padding: 0 5px 0 5px;
 }
 
 .logout {

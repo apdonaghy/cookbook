@@ -122,8 +122,9 @@ export default {
 
 @media only screen and (max-width: 500px) {
     .thirds {
-    width: 100%;
-    padding: 10px;
+    width: 96%;
+    margin:0 auto;
+  
   }
   .flex {
     display: block;
