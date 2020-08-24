@@ -15,6 +15,7 @@
 
       <div class="flex flex-wrap">
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
+          <!-- link to dynamic route that uses :to and pushes the user to a route with user id and the unique recipe id for each recipe-->
           <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink">
             <div
               role="img"

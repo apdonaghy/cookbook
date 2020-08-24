@@ -129,7 +129,6 @@ export default {
   beforeCreate: function() {
     document.body.className = "white";
   },
-  props: ["user", "recipes"],
   components: {
     FontAwesomeIcon
   },
@@ -170,6 +169,8 @@ export default {
           return str.replace(/\.jpg$/, "_700x933.jpg");
         } else if (str.indexOf(".png") > -1) {
           return str.replace(/\.png$/, "_700x933.png");
+        } else if (str.indexOf(".jpeg") > -1) {
+          return str.replace(/\.jpeg$/, "_700x933.jpg");
         } else {
           console.log("this is probably a svg");
         }

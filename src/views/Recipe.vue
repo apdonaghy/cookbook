@@ -64,9 +64,7 @@ export default {
       this.show = true;
     }
   },
-  props: ["user", "recipes"],
   mounted() {
-
     // this is where I get the user data from the database for the specific user, using the userID that I'm taking from the route
     db.collection("users")
       .doc(this.userID)

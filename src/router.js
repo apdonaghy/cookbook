@@ -28,6 +28,7 @@ export default new Router({
       component: Recipes
     },
     {
+      // this is the dynamic route, which uses the user iD and recipe iD to create a unique url. In vue the colon means that the data is dynamic
       path: "/recipe/:userID/:recipesID",
       name: "recipe",
       component: Recipe

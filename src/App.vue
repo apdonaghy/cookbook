@@ -377,7 +377,7 @@ input:focus::-webkit-input-placeholder {
 
 .createAnAccount {
   text-align: center;
-  margin-top: 1em;
+  margin-top: 15px;
   font-family: var(--medium);
   color: rgb(142, 142, 142);
 }
