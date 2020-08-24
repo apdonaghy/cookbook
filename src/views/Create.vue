@@ -167,11 +167,16 @@ export default {
       function changeFileName(str) {
         if (str.indexOf(".jpg") > -1) {
           return str.replace(/\.jpg$/, "_700x933.jpg");
-        } else if (str.indexOf(".png") > -1) {
+        } 
+        else if(str.indexOf(".jpeg") > -1) {
+          return str.replace(/\.jpeg$/, "_700x933.jpeg");
+        } 
+        
+        else if (str.indexOf(".png") > -1) {
           return str.replace(/\.png$/, "_700x933.png");
-        } else if (str.indexOf(".jpeg") > -1) {
-          return str.replace(/\.jpeg$/, "_700x933.jpg");
-        } else {
+        } 
+        
+        else {
           console.log("this is probably a svg");
         }
       }
