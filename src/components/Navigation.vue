@@ -3,7 +3,7 @@
     <div @click="closeNav" :class="{overlay: isActive}"></div>
 
     <nav>
-      <div class="navbar">
+      <div class="navbar paddingTop">
         <div class="flex space-between navContainer">
           <span v-if="!user" class="hamburger black">&#9776;</span>
           <span
@@ -105,6 +105,10 @@ export default {
 };
 </script>
 <style scoped>
+.paddingTop{
+  padding-top:5px;
+}
+
 .fade-enter-active {
   transition: opacity 1s;
 }

@@ -30,7 +30,7 @@
         <h3 class="text-left recipeTags">Recipe</h3>
         <p class="paragraphStyle recipeText">{{ item.recipeInstructions }}</p>
 
-        <button class="delete" title="Delete Recipe" @click="deleteRecipeOn">
+        <button class="delete" title="Delete Recipe" @click="deleteRecipeOn" @keyup.enter="deleteRecipeOn">
           <font-awesome-icon icon="trash"></font-awesome-icon>Delete Recipe
         </button>
       </div>

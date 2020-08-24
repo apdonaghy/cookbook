@@ -34,7 +34,7 @@
               <button
                 style="cursor:pointer;"
                 @click.prevent="addIngredient"
-                class="float addBtn addBtnWidth"
+                class="addBtn addBtnWidth"
               >Add ingredient+</button>
             </div>
 
@@ -156,9 +156,6 @@ export default {
           ingredients: this.ingredients,
           imageUrlName: this.imageUrlName
         });
-        this.recipeName = null;
-        this.recipeInstructions = null;
-        this.$refs.recipeName.focus();
       } else {
         console.log("error");
       }
@@ -268,13 +265,14 @@ export default {
 }
 
 .instructions {
-  width: 100%;
+  width: 98.5%;
   height: 10em;
   border: 3px solid black;
 }
 
 .createRecipeBtn {
   padding: 0 1em 0 1em;
+  margin-right:0em;
 }
 
 .mt {
@@ -287,7 +285,6 @@ export default {
 
 textarea {
   font-size: 1.4em;
-  padding: 0.65em;
   font-family: var(--paragraph);
 }
 
@@ -310,8 +307,9 @@ textarea {
 
 .addBtnWidth {
   width: 12em;
-  height: 2.6em;
-  padding-bottom: 0.3em;
+  height: 2.8em;
+  margin-left:10px;
+  /* padding-bottom: 0.3em; */
 }
 
 .ingredientLi {
