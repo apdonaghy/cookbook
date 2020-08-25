@@ -20,7 +20,7 @@
               id="recipeName"
             />
             <div class="flex">
-               <label style="display:none" for="ingredient">Ingredient</label>
+              <label style="display:none" for="ingredient">Ingredient</label>
               <input
                 type="text"
                 class="createInput"
@@ -42,19 +42,31 @@
               <li v-for="(item, index) in ingredients" :key="index" class="ingredientLi">
                 {{ item }}
                 <span
-                  tabindex=0
+                  tabindex="0"
                   role="button"
                   class="delete"
                   v-if="ingredients.length > 0"
                   @keyup.enter="deleteIngredient(index)"
                   @click="deleteIngredient(index)"
-                >Delete</span>
+                  >Delete
+                  </span>
               </li>
             </ul>
 
             <div class="mt mb">
-              <button tabindex=0 @click.prevent="openImage" @keyup.enter.prevent="openImage" class="upload" role="button"><font-awesome-icon icon="upload"/> Upload an image or take a pic of your dish</button>
+              <!-- this button opens <input type="file"> using the ref "recipePic" and the click() function  -->
+              <button
+                tabindex="0"
+                @click.prevent="openImage"
+                @keyup.enter.prevent="openImage"
+                class="upload"
+                role="button"
+              >
+              <font-awesome-icon icon="upload" />Upload an image or take a pic of your dish
+              </button>
               <label style="display:none" for="imageUpload">Image Upload</label>
+              
+              <!-- @change listens for the value of the input to change and then initiates the "recipePicChosen" method – essentially when a new image is uploaded -->
               <input
                 class="imgWidth"
                 style="display:none"
@@ -137,7 +149,8 @@ export default {
       if (this.ingredient !== "") {
         this.ingredients.push(this.ingredient);
         this.ingredient = null;
-        this.$refs.ingredient.focus();
+        this.$refs.ingredient.focus(); // this puts the focus back on the ingredient input so the user doesn't have to navigate back to the form to add another ingredient
+
       } else {
         console.log("error");
       }
@@ -148,6 +161,7 @@ export default {
     openImage: function() {
       this.$refs.recipePic.click();
     },
+    // this method emits all of the data taken from this page and sends it to the main app, where it will then be pushed to firebase via the "addRecipe" function
     handleAdd: function() {
       if (this.recipeName !== "") {
         this.$emit("addRecipe", {
@@ -160,28 +174,27 @@ export default {
         console.log("error");
       }
     },
+  
     recipePicChosen: function(event) {
+      // "changeFilename" processes the images so that the image will have the exact name that is created by database when it downsizes and processes the images. 
       function changeFileName(str) {
         if (str.indexOf(".jpg") > -1) {
           return str.replace(/\.jpg$/, "_700x933.jpg");
-        } 
-        else if(str.indexOf(".jpeg") > -1) {
+        } else if (str.indexOf(".jpeg") > -1) {
           return str.replace(/\.jpeg$/, "_700x933.jpeg");
-        } 
-        
-        else if (str.indexOf(".png") > -1) {
+        } else if (str.indexOf(".png") > -1) {
           return str.replace(/\.png$/, "_700x933.png");
-        } 
-        
-        else {
+        } else {
           console.log("this is probably a svg");
         }
       }
 
+      // this function removes spaces so when the filename is stored as a reference to the actual file in the database there will not be an issue locating it via url
       function removeSpaces(str) {
         return str.replace(/ /g, "_");
       }
-      this.showSpinner = true;
+
+      // This set of variables and functions renders a preview of the image that was added by the user and sets the first item in the "files" array as the image to be sent to the server using the function below
       const files = event.target.files;
       let filename = files[0].name;
       if (filename.lastIndexOf(".") <= 0) {
@@ -194,17 +207,22 @@ export default {
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
 
+
+      // This set of functions pushes the image to the storage bucket in the database
       const storageRef = Firebase.storage().ref();
       const imgFolder = storageRef.child(
         `images/${removeSpaces(this.image.name)}`
       );
       imgFolder.put(this.image);
 
+      // this line of code is what pushes the correct file name to the database that will be used to reference the actual image in the database
       this.imageUrlName = changeFileName(removeSpaces(this.image.name));
 
+
+      // this set of functions shows the spinner while the image is uploading to the database, but stops when it's fully uploaded and processed by the database
+      this.showSpinner = true;
       let progressArray = [];
       this.localProgressArray = progressArray;
-
       imgFolder.put(this.image).on(
         Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         function(snapshot) {
@@ -224,7 +242,6 @@ export default {
       );
     }
   }
-  //   props: ["user", "recipes"]
 };
 </script>
 
@@ -272,7 +289,7 @@ export default {
 
 .createRecipeBtn {
   padding: 0 1em 0 1em;
-  margin-right:0em;
+  margin-right: 0em;
 }
 
 .mt {
@@ -308,7 +325,7 @@ textarea {
 .addBtnWidth {
   width: 12em;
   height: 2.8em;
-  margin-left:10px;
+  margin-left: 10px;
   /* padding-bottom: 0.3em; */
 }
 
@@ -335,7 +352,7 @@ textarea {
   margin: 0;
   width: 100%;
   background: transparent;
-  display:block;
+  display: block;
 }
 
 .upload:hover,
@@ -345,11 +362,10 @@ textarea {
   transition: 0.3s;
 }
 
-.upload:focus{
-  outline:none;
+.upload:focus {
+  outline: none;
   border: solid 3px dodgerblue;
 }
-
 
 @media only screen and (max-width: 600px) {
   .upload {

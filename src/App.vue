@@ -6,7 +6,7 @@
     <!-- global methods and data properties -->
     <router-view
       class="container"
-      :user="user" 
+      :user="user"
       :recipes="recipes"
       :error="error"
       @logout="logout"
@@ -282,7 +282,8 @@ textarea {
  */
 
 button,
-input { /* 1 */
+input {
+  /* 1 */
   overflow: visible;
 }
 
@@ -292,7 +293,8 @@ input { /* 1 */
  */
 
 button,
-select { /* 1 */
+select {
+  /* 1 */
   text-transform: none;
 }
 
@@ -456,19 +458,10 @@ template {
   display: none;
 }
 
-
-
-
-::selection {
-  background-color: black;
-  color: white;
-}
-
-.top-space {
-  height: 50px;
-  width: 100%;
-  position: relative;
-}
+/* end of normalize css */
+/* end of normalize css */
+/* end of normalize css */
+/* end of normalize css */
 
 @font-face {
   font-family: "NeutraTextBoldAlt";
@@ -485,21 +478,16 @@ template {
   src: url(../public/fonts/NeutraTextDemiAlt.otf);
 }
 
-.flex {
-  display: flex;
+:root {
+  --brand: #ffdc87;
+  --offwhite: #fdfdfd;
+  --boldFace: "NeutraTextBoldAlt";
+  --medium: "NeutraMedium";
+  --paragraph: "SortsMillGoudy-Regular";
 }
 
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.center {
-  display: block;
-  margin: 0 auto;
-}
-
-h1{
-  font-size:1em;
+h1 {
+  font-size: 1em;
 }
 
 h2 {
@@ -514,17 +502,33 @@ h3 {
   text-align: center;
 }
 
-h4{
-    font-size: 1.35em;
-    margin-bottom:1em;
+h4 {
+  font-size: 1.35em;
+  margin-bottom: 1em;
 }
 
-:root {
-  --brand: #ffdc87;
-  --offwhite: #fdfdfd;
-  --boldFace: "NeutraTextBoldAlt";
-  --medium: "NeutraMedium";
-  --paragraph: "SortsMillGoudy-Regular";
+::selection {
+  background-color: black;
+  color: white;
+}
+
+.top-space {
+  height: 50px;
+  width: 100%;
+  position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
 }
 
 .padding-top {
@@ -558,7 +562,7 @@ p {
   margin-bottom: 3em;
 }
 
-.stylized-title h1{
+.stylized-title h1 {
   font-size: 1.25em;
   padding: 10px 10px 5px 10px;
   border: solid 2px white;
@@ -572,34 +576,8 @@ p {
   padding-bottom: 3em;
 }
 
-@media only screen and (max-width: 1300px) {
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (max-width: 1200px) {
-  .container {
-    max-width: 950px;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (max-width: 980px) {
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-}
-
-@media only screen and (max-width: 925px) {
-  .container {
-    max-width: 850px;
-    margin: 0 auto;
-  }
-}
-
+/* form */
+/* form */
 /* form */
 input[type="text"],
 input[type="email"],
@@ -628,8 +606,8 @@ input[type="password"]:focus {
   background-image: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  outline:none;
-  
+  outline: none;
+
   box-shadow: none;
   font-family: var(--medium);
   color: black;
@@ -656,6 +634,10 @@ input:focus::-webkit-input-placeholder {
   transition: 0.3s;
 }
 
+/* login and register */
+/* login and register */
+/* login and register */
+
 .login-form {
   background: white;
   border-radius: 20px;
@@ -680,25 +662,6 @@ input:focus::-webkit-input-placeholder {
   height: 36em;
 }
 
-@media only screen and (max-height: 800px) {
-  .login-form {
-    position: relative;
-    margin: 0 auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .login-form {
-    position: relative;
-    margin: 0 auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin: 25px;
-    padding: 1.75em;
-  }
-}
 
 .signInBtn {
   border: 3px solid black;
@@ -752,7 +715,57 @@ a {
 .underline {
   text-decoration: underline;
 }
-/* form */
+/* login and register */
+/* login and register */
+/* login and register */
 
-/* @import "node_modules/bootstrap/scss/bootstrap"; */
+
+@media only screen and (max-width: 1300px) {
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 925px) {
+  .container {
+    max-width: 850px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .login-form {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .login-form {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin: 25px;
+    padding: 1.75em;
+  }
+}
+
 </style>

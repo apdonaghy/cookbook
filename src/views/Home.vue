@@ -8,12 +8,10 @@
     />
 
     <div class="about-container">
-
-        <h3 v-if="user" class="text-center">
-          Hi
-          <span class="font-weight-bold text-info">{{user.displayName}}</span>,
-        </h3>
-     
+      <h3 v-if="user" class="text-center">
+        Hi
+        <span class="font-weight-bold text-info">{{user.displayName}}</span>,
+      </h3>
 
       <h2>
         Welcome to
@@ -21,7 +19,8 @@
       </h2>
       <p class="largeParagraphText">
         This app can help you store all of your recipes and food creations with
-        <a class="underline"
+        <a
+          class="underline"
           href="https://vuejs.org/"
         >Vue.js</a>
         and
@@ -29,17 +28,11 @@
       </p>
       <p class="largeParagraphText">
         Cookbook was created in the summer quarter of 2020 for the
-        <a class="underline" href="https://www.seattleu.edu/ncs/web-development/">WATS program</a> at Seattle University. It uses firebase to store user data and provides a content management system for users to upload and store recipes and access them from any device. The design is hand-coded and was a blast to create. Hope you enjoy it!
+        <a
+          class="underline"
+          href="https://www.seattleu.edu/ncs/web-development/"
+        >WATS program</a> at Seattle University. It uses firebase to store user data and provides a content management system for users to upload and store recipes and access them from any device. The design is hand-coded and was a blast to create. Hope you enjoy it!
       </p>
-      <!-- <div class="flex">
-      <router-link class="textCenter" to="/login" v-if="!user">Log In</router-link>
-      <router-link class="textCenter" to="/register" v-if="!user">Register</router-link>
-      </div>
-
-      <div class="flex">
-      <router-link class="textCenter" to="/recipes" v-if="user">Recipes</router-link>
-      <router-link  to="/create" v-if="user">Create a recipe</router-link>
-      </div> -->
     </div>
   </div>
 </template>
@@ -49,16 +42,14 @@ export default {
   name: "home",
   props: ["user"],
   beforeCreate: function() {
-    // if (!this.user) {
-      document.body.className = "brand";
-    // }
+    document.body.className = "brand";
   }
 };
 </script>
 
 <style scoped>
-.svgImg{
-  width:7em;
+.svgImg {
+  width: 7em;
 }
 
 .largeParagraphText {
@@ -79,14 +70,11 @@ export default {
 .about-container {
   max-width: 55em;
   margin: 0 auto;
-  margin-top: 3em;
-  padding:15px;
+  margin-top: 1em;
+  padding: 15px;
 }
-
 
 .imageSpace {
   margin-top: 3em;
 }
-
-
 </style>
