@@ -14,9 +14,10 @@
       </div>
 
       <div class="flex flex-wrap space-between2">
+        <!-- using the recipe prop that was created by methods in the main app level -->
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
-          <!-- link to dynamic route that uses :to and pushes the user to a route with user id and the unique recipe id for each recipe-->
-          <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink">
+          <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink"> <!-- link to dynamic route that uses :to and pushes the user to a route with the user id and the unique recipe id for each recipe-->
+
             <div
               role="img"
               :aria-label="`${item.recipeName}`"

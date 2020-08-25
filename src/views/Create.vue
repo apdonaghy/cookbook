@@ -149,7 +149,7 @@ export default {
       if (this.ingredient !== "") {
         this.ingredients.push(this.ingredient);
         this.ingredient = null;
-        this.$refs.ingredient.focus(); // this puts the focus back on the ingredient input so the user doesn't have to navigate back to the form to add another ingredient
+        this.$refs.ingredient.focus(); // this forces the focus back on the ingredient input so the user doesn't have to navigate back to the form to add another ingredient
 
       } else {
         console.log("error");

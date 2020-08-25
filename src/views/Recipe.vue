@@ -7,7 +7,7 @@
         <h1>RECIPE</h1>
       </div>
 
-      <div v-for="item in actualRecipe" :key="item.id">
+      <div v-for="item in localRecipe" :key="item.id">
         <transition name="fade">
           <div tabindex="0" role="button" @click="show = !show" @keyup.enter="show = !show" v-if="show" class="higher">
             <button
@@ -49,7 +49,6 @@ export default {
       userID: this.$route.params.userID,
       recipesID: this.$route.params.recipesID,
       localRecipe: [],
-      actualRecipe: [],
       show: false
     };
   },
@@ -65,7 +64,7 @@ export default {
     }
   },
   mounted() {
-    // this is where I get the user data from the database for the specific user, using the userID that I'm taking from the route
+    // this is where I get the users recipe data from the database, using the userID that I'm taking from the route that was pushed via the recipes page
     db.collection("users")
       .doc(this.userID)
       .collection("recipes")
@@ -81,11 +80,10 @@ export default {
           });
         });
         
-        // this is where I get the unique recipe data by taking the specific user data I just pushed to snapData and then look for the recipe with the same id as the recipesID from the route and then push that to a local array called "actualRecipe." Then I use that array to loop through for the content of each recipe page.
-        this.localRecipe = snapData;
-        for (let recipe in this.localRecipe) {
-          if (this.localRecipe[recipe].id === this.recipesID) {
-            this.actualRecipe.push(this.localRecipe[recipe]);
+        // this is where I get the unique recipe data by taking the user's recipes collection that I just pushed to snapData on mount and then look for the recipe with the same id as the route (recipesID) and then push that to a local array called "localRecipe." Then I use that array to loop through for the content of each recipe page.
+        for (let recipe in snapData) {
+          if (snapData[recipe].id === this.recipesID) {
+            this.localRecipe.push(snapData[recipe]);
           }
         }
       });
@@ -112,7 +110,7 @@ export default {
 }
 
 .recipeContainer {
-  max-width: 57em;
+  max-width: 50em;
   padding: 0 40px 0 40px;
 }
 

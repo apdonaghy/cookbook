@@ -498,6 +498,7 @@ h2 {
 
 h3 {
   font-size: 1.7em;
+  margin-top: 0.5em;
   margin-bottom: 1em;
   text-align: center;
 }
@@ -653,13 +654,13 @@ input:focus::-webkit-input-placeholder {
 }
 
 .loginForm {
-  max-width: 25em;
-  height: 25em;
+  max-width: 22em;
+  height: 23em;
 }
 
 .register {
-  max-width: 25em;
-  height: 36em;
+  max-width: 22em;
+  height: 34em;
 }
 
 
