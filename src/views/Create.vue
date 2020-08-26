@@ -62,7 +62,7 @@
                 class="upload"
                 role="button"
               >
-              <font-awesome-icon icon="upload" />Upload an image or take a pic of your dish
+              <font-awesome-icon icon="upload" /> Upload an image or take a pic of your dish
               </button>
               <label style="display:none" for="imageUpload">Image Upload</label>
               

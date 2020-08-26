@@ -13,7 +13,7 @@
         </router-link>
       </div>
 
-      <div class="flex flex-wrap space-between2">
+      <div class="flex flex-wrap">
         <!-- using the recipe prop that was created by methods in the main app level -->
         <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
           <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink"> <!-- link to dynamic route that uses :to and pushes the user to a route with the user id and the unique recipe id for each recipe-->
@@ -55,13 +55,8 @@ export default {
 </script>
 <style scoped>
 .thirds {
-  width: 32.5%;
-  /* padding: 10px; */
-}
-
-.space-between2 {
-  justify-content: space-between;
-  /* align-items: center; */
+  width: 31.3333333%;
+  padding: 1%;
 }
 
 .thumbnailImages {

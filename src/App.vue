@@ -3,7 +3,7 @@
     <!-- this is where I add the navigation component so that it's in every route -->
     <Navigation :user="user" @logout="logout" />
 
-    <!-- global methods and data properties -->
+    <!-- global methods and gloabl/dynamic data properties -->
     <router-view
       class="container"
       :user="user"
@@ -30,6 +30,9 @@ export default {
       recipes: []
     };
   },
+    components: {
+    Navigation
+  },
   methods: {
     logout: function() {
       Firebase.auth()
@@ -49,7 +52,7 @@ export default {
           ingredients: payload.ingredients,
           recipeInstructions: payload.recipeInstructions,
           // this is a reference to the user uploaded image that is actually in the storage bucket.
-          imageUrlName:
+          imageUrlName: 
             "https://firebasestorage.googleapis.com/v0/b/cookbook-fa062.appspot.com/o/images%2F" +
             payload.imageUrlName +
             "?alt=media",
@@ -97,9 +100,6 @@ export default {
           });
       }
     });
-  },
-  components: {
-    Navigation
   }
 };
 </script>

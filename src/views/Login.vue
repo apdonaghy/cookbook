@@ -60,13 +60,9 @@ export default {
   },
   methods: {
     login: function() {
-      const info = {
-        email: this.email,
-        password: this.password
-      };
 
       Firebase.auth()
-        .signInWithEmailAndPassword(info.email, info.password)
+        .signInWithEmailAndPassword(this.email, this.password)
         .then(
           () => {
             this.$router.push("/recipes");
