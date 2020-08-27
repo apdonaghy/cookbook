@@ -8,8 +8,33 @@
       </div>
 
       <div v-for="item in localRecipe" :key="item.id">
+        <h2>{{ item.recipeName }}</h2>
+        <img class="center picSize" :src="item.imageUrlName" :alt="item.recipeName" />
+        <h3 class="text-left margin-top recipeTags">Ingredients</h3>
+        <ul class="ingredientsList">
+          <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>
+        </ul>
+        <h3 class="text-left recipeTags">Recipe</h3>
+        <p class="paragraphStyle recipeText">{{ item.recipeInstructions }}</p>
+
+        <button
+          class="delete"
+          title="Delete Recipe"
+          @click="deleteRecipeOn"
+          @keyup.enter="deleteRecipeOn"
+        >
+          <font-awesome-icon icon="trash"></font-awesome-icon>Delete Recipe
+        </button>
+
         <transition name="fade">
-          <div tabindex="0" role="button" @click="show = !show" @keyup.enter="show = !show" v-if="show" class="higher">
+          <div
+            tabindex="0"
+            role="button"
+            @click="show = !show"
+            @keyup.enter="show = !show"
+            v-if="show"
+            class="higher"
+          >
             <button
               class="delete confirm"
               title="Confirm Delete"
@@ -20,19 +45,6 @@
             </button>
           </div>
         </transition>
-
-        <h2>{{ item.recipeName }}</h2>
-        <img class="center picSize" :src="item.imageUrlName" :alt="item.recipeName"/>
-        <h3 class="text-left margin-top recipeTags">Ingredients</h3>
-        <ul class="ingredientsList">
-          <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>
-        </ul>
-        <h3 class="text-left recipeTags">Recipe</h3>
-        <p class="paragraphStyle recipeText">{{ item.recipeInstructions }}</p>
-
-        <button class="delete" title="Delete Recipe" @click="deleteRecipeOn" @keyup.enter="deleteRecipeOn">
-          <font-awesome-icon icon="trash"></font-awesome-icon>Delete Recipe
-        </button>
       </div>
     </div>
   </div>
@@ -79,7 +91,7 @@ export default {
             imageUrlName: doc.data().imageUrlName
           });
         });
-        
+
         // this is where I get the unique recipe data by taking the user's recipes collection that I just pushed to snapData on mount and then look for the recipe with the same id as the route (recipesID) and then push that to a local array called "localRecipe." Then I use that array to loop through for the content of each recipe page.
         for (let recipe in snapData) {
           if (snapData[recipe].id === this.recipesID) {

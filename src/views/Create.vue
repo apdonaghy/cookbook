@@ -76,6 +76,8 @@
                 id="imageUpload"
                 @change="recipePicChosen"
               />
+              
+              <!-- this v-if statement shows the spinner when it is set to true from the recipePicChosen method and then changes it to false again if the last value in the array is === to 100 -->
               <font-awesome-icon
                 v-if="showSpinner && (localProgressArray[localProgressArray.length - 1] === 100) === false"
                 icon="spinner"
@@ -130,7 +132,6 @@ export default {
       recipeName: "",
       recipeInstructions: null,
       previewUrl: "",
-      image: null,
       ingredient: "",
       ingredients: [],
       imageUrlName: "cookbook.svg",
@@ -156,12 +157,13 @@ export default {
       }
     },
     deleteIngredient: function(index) {
+      // the vue function $delete takes two arguments in this instance, the array of ingredients and the index. When the user clicks the delete button that's adjecent to a particular ingredient, it deletes that specific ingredient using the "index" as a map of which item should be removed.
       this.$delete(this.ingredients, index);
     },
     openImage: function() {
       this.$refs.recipePic.click();
     },
-    // this method emits all of the data taken from this page and sends it to the main app, where it will then be pushed to firebase via the "addRecipe" function
+    // this method emits all of the data collected from the user and sends it to the main app, where it will then be pushed to firebase via the "addRecipe" function. The benifit here is that when it's pushed on to be processed in the top level app, it makes it much easier to share this data to with other views as props. 
     handleAdd: function() {
       if (this.recipeName !== "") {
         this.$emit("addRecipe", {
@@ -176,7 +178,24 @@ export default {
     },
   
     recipePicChosen: function(event) {
-      // "changeFilename" processes the images so that the image will have the exact name that is created by database when it downsizes and processes the images. 
+
+      // this function removes spaces in the filename so when the filename is referenced there aren't any "% 20" symbols in the url, which would interfier with accessing the file
+      function removeSpaces(str) {
+        return str.replace(/ /g, "_");
+      }
+
+      // These variables hold the array of files (in this case the app only takes on file at a time) and the filename that were added from the DOM
+      const fileArray = event.target.files;
+      let filename = removeSpaces(fileArray[0].name);
+      let image = fileArray[0];
+      // This looks to see if the file added has an extension
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("please add a valid file");
+      }
+
+      
+
+       // The "changeFilename" function uses string "replace" methods that read the extension of the file and replace it with the pictures new dimensions that will automatically inserted by the storage bucket after the resize function is finished processing and deltes the original file from the database. This renaming function ensures that the user will be able to retrieve the file from the storagebucket's url since the name is changed post processsing.  
       function changeFileName(str) {
         if (str.indexOf(".jpg") > -1) {
           return str.replace(/\.jpg$/, "_700x933.jpg");
@@ -189,41 +208,22 @@ export default {
         }
       }
 
-      // this function removes spaces so when the filename is stored as a reference to the actual file in the database there will not be an issue locating it via url
-      function removeSpaces(str) {
-        return str.replace(/ /g, "_");
-      }
-
-      // This set of variables and functions renders a preview of the image that was added by the user and sets the first item in the "files" array as the image to be sent to the server using the function below
-      const files = event.target.files;
-      let filename = files[0].name;
-      if (filename.lastIndexOf(".") <= 0) {
-        return alert("please add a valid file");
-      }
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
-        this.previewUrl = fileReader.result;
-      });
-      fileReader.readAsDataURL(files[0]);
-      this.image = files[0];
-
-
       // This set of functions pushes the image to the storage bucket in the database
       const storageRef = Firebase.storage().ref();
       const imgFolder = storageRef.child(
-        `images/${removeSpaces(this.image.name)}`
+        `images/${filename}`
       );
-      imgFolder.put(this.image);
+      imgFolder.put(image);
 
       // this line of code is what pushes the correct file name to the database that will be used to reference the actual image in the database
-      this.imageUrlName = changeFileName(removeSpaces(this.image.name));
+      this.imageUrlName = changeFileName(filename);
 
 
       // this set of functions shows the spinner while the image is uploading to the database, but stops when it's fully uploaded and processed by the database
       this.showSpinner = true;
       let progressArray = [];
       this.localProgressArray = progressArray;
-      imgFolder.put(this.image).on(
+      imgFolder.put(image).on(
         Firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
         function(snapshot) {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
@@ -240,6 +240,14 @@ export default {
           }
         }
       );
+    
+      // This set of variables and functions uses the uploaded file and creates a base64 image to use as a preview. A base64 image is essentially the image as a string value instead of binary, which is fine for an image preview, however, this image will not be added to the storage bucket since base64 images are typically larger than binary files.
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.previewUrl = fileReader.result;
+      });
+      fileReader.readAsDataURL(image);
+
     }
   }
 };

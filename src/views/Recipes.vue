@@ -15,20 +15,27 @@
 
       <div class="flex flex-wrap">
         <!-- using the recipe prop that was created by methods in the main app level -->
-        <div class="thirds margin-bottom" v-for="item of recipes" :key="item.id">
-          <router-link :to="'/recipe/' + user.uid + '/' + item.id" id="thumbnailLink"> <!-- link to dynamic route that uses :to and pushes the user to a route with the user id and the unique recipe id for each recipe-->
+        <div 
+          class="thirds margin-bottom" 
+          v-for="item of recipes" 
+          :key="item.id">
+          <router-link 
+            :to="'/recipe/' + user.uid + '/' + item.id" 
+            id="thumbnailLink">
+            <!-- link to dynamic route that uses :to and pushes the user to a route with the user id and the unique recipe id for each recipe-->
 
             <div
               role="img"
               :aria-label="`${item.recipeName}`"
               class="thumbnailImages"
-              :style="{backgroundImage:`url(${ item.imageUrlName })`}"
+              :style="{ backgroundImage: `url(${ item.imageUrlName })` }"
             ></div>
 
             <span
               class="recipe-title"
               :to="'/recipe/' + user.uid + '/' + item.id"
-            >{{item.recipeName}}</span>
+            >{{ item.recipeName }}
+            </span>
           </router-link>
         </div>
       </div>
@@ -44,13 +51,12 @@ export default {
       showFirstRecipe: false
     };
   },
+
+  props: ["user", "recipes"],
+
   beforeCreate: function() {
     document.body.className = "white";
-  },
-  components: {
-    // FontAwesomeIcon
-  },
-  props: ["user", "recipes"]
+  }
 };
 </script>
 <style scoped>
@@ -71,13 +77,13 @@ export default {
 .thumbnailImages:hover {
   opacity: 0.75;
   transition: 0.3s;
- 
+
   /* background-color: var(--brand); */
 }
 
-#thumbnailLink span:hover{
-   color: #70c599;
-   text-decoration: underline;
+#thumbnailLink span:hover {
+  color: #70c599;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -117,10 +123,9 @@ export default {
 }
 
 @media only screen and (max-width: 500px) {
-    .thirds {
+  .thirds {
     width: 96%;
-    margin:0 auto;
-  
+    margin: 0 auto;
   }
   .flex {
     display: block;
@@ -131,14 +136,12 @@ export default {
 }
 
 @media only screen and (max-width: 450px) {
-
   .thumbnailImages {
     height: 24em;
   }
 }
 
 @media only screen and (max-width: 400px) {
-
   .thumbnailImages {
     height: 22em;
   }
@@ -187,10 +190,9 @@ export default {
 }
 
 @media only screen and (max-width: 900px) {
-
-.margin-bottom {
-  margin-bottom: 2em;
-}
+  .margin-bottom {
+    margin-bottom: 2em;
+  }
 }
 
 .fadeIn {

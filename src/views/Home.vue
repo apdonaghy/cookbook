@@ -19,10 +19,7 @@
       </h2>
       <p class="largeParagraphText">
         This app can help you store all of your recipes and food creations with
-        <a
-          class="underline"
-          href="https://vuejs.org/"
-        >Vue.js</a>
+        <a class="underline" href="https://vuejs.org/">Vue.js</a>
         and
         <a class="underline" href="https://firebase.google.com">Firebase</a>.
       </p>

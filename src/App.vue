@@ -9,7 +9,6 @@
       :user="user"
       :recipes="recipes"
       :error="error"
-      @logout="logout"
       @addRecipe="addRecipe"
       @deleterecipe="deleterecipe"
     />
@@ -51,7 +50,7 @@ export default {
           recipeName: payload.recipeName,
           ingredients: payload.ingredients,
           recipeInstructions: payload.recipeInstructions,
-          // this is a reference to the user uploaded image that is actually in the storage bucket.
+          // this concatenated string consists of my firebase storage bucket url and the image name that I processed from the "recipePicChosen function"
           imageUrlName: 
             "https://firebasestorage.googleapis.com/v0/b/cookbook-fa062.appspot.com/o/images%2F" +
             payload.imageUrlName +
@@ -71,7 +70,7 @@ export default {
     }
   },
   mounted() {
-    // this collects data from the database if recipes already exist and pushes the recipe data to the "recipes" array
+    // this collects data from the database – if recipes already exist and then pushes the recipe data to the – "recipes" array
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user;
