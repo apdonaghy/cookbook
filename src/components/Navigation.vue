@@ -231,7 +231,7 @@ a.login:hover {
 .hamburger:focus {
   border: 2px solid dodgerblue;
   padding: 0.4em 0 0.4em 0;
-  width: 0.9em;
+  width: 0.8em;
 }
 
 .black {

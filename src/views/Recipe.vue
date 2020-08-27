@@ -23,7 +23,7 @@
           @click="deleteRecipeOn"
           @keyup.enter="deleteRecipeOn"
         >
-          <font-awesome-icon icon="trash"></font-awesome-icon>Delete Recipe
+          <font-awesome-icon icon="trash"></font-awesome-icon> Delete Recipe
         </button>
 
         <transition name="fade">
@@ -41,7 +41,7 @@
               @click="$emit('deleterecipe', item.id)"
               @keydown.tab="show = !show"
             >
-              <font-awesome-icon icon="trash"></font-awesome-icon>Confirm Delete
+              <font-awesome-icon icon="trash"></font-awesome-icon> Confirm Delete
             </button>
           </div>
         </transition>
