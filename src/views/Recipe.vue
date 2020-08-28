@@ -4,18 +4,34 @@
 
     <div class="container recipeContainer">
       <div class="stylized-title recipe">
-        <h1>RECIPE</h1>
+        <h1 id="top">RECIPE</h1>
       </div>
 
       <div v-for="item in localRecipe" :key="item.id">
         <h2>{{ item.recipeName }}</h2>
-        <img class="center picSize" :src="item.imageUrlName" :alt="item.recipeName" />
+        <img
+          class="center picSize"
+          :src="item.imageUrlName"
+          :alt="item.recipeName"
+        />
         <h3 class="text-left margin-top recipeTags">Ingredients</h3>
         <ul class="ingredientsList">
-          <li v-for="(ingredient, index) in item.ingredients" :key="index">{{ ingredient }}</li>
+          <li v-for="(ingredient, index) in item.ingredients" :key="index">
+            {{ ingredient }}
+          </li>
         </ul>
         <h3 class="text-left recipeTags">Recipe</h3>
         <p class="paragraphStyle recipeText">{{ item.recipeInstructions }}</p>
+
+
+          <!-- <button
+          class="delete"
+          title="Edit Recipe"
+          @click="$emit('editrecipe', localRecipe[0])"
+        >
+         Edit Recipe
+        </button> -->
+
 
         <button
           class="delete"
@@ -25,6 +41,7 @@
         >
           <font-awesome-icon icon="trash"></font-awesome-icon> Delete Recipe
         </button>
+
 
         <transition name="fade">
           <div
@@ -41,7 +58,8 @@
               @click="$emit('deleterecipe', item.id)"
               @keydown.tab="show = !show"
             >
-              <font-awesome-icon icon="trash"></font-awesome-icon> Confirm Delete
+              <font-awesome-icon icon="trash"></font-awesome-icon> Confirm
+              Delete
             </button>
           </div>
         </transition>
@@ -50,7 +68,6 @@
   </div>
 </template>
 <script>
-import db from "../db.js";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
@@ -75,30 +92,15 @@ export default {
       this.show = true;
     }
   },
+  props: ["recipes"],
   mounted() {
-    // this is where I get the users recipe data from the database, using the userID that I'm taking from the route that was pushed via the recipes page
-    db.collection("users")
-      .doc(this.userID)
-      .collection("recipes")
-      .onSnapshot(snapshot => {
-        const snapData = [];
-        snapshot.forEach(doc => {
-          snapData.push({
-            id: doc.id,
-            recipeName: doc.data().recipeName,
-            recipeInstructions: doc.data().recipeInstructions,
-            ingredients: doc.data().ingredients,
-            imageUrlName: doc.data().imageUrlName
-          });
-        });
-
-        // this is where I get the unique recipe data by taking the user's recipes collection that I just pushed to snapData on mount and then look for the recipe with the same id as the route (recipesID) and then push that to a local array called "localRecipe." Then I use that array to loop through for the content of each recipe page.
-        for (let recipe in snapData) {
-          if (snapData[recipe].id === this.recipesID) {
-            this.localRecipe.push(snapData[recipe]);
+        // this is where I get the unique recipe data by taking the global recipes prop and then look for the recipe with the same id as the route (recipesID) and then push that to a local array called "localRecipe." Then I use that array to loop through for the content of each recipe page.
+        for (let recipe in this.recipes) {
+          if (this.recipes[recipe].id === this.recipesID) {
+          this.localRecipe.push(this.recipes[recipe]);
           }
         }
-      });
+     
   }
 };
 </script>

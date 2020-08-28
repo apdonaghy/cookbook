@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="closeNav" :class="{overlay: isActive}"></div>
+    <div @click="closeNav" :class="{ overlay: isActive }"></div>
 
     <nav>
       <div class="navbar paddingTop">
@@ -14,13 +14,14 @@
             style="cursor:pointer"
             @click="openNav"
             @keyup.enter="openNav"
-          >&#9776;</span>
+            >&#9776;</span
+          >
 
-          <div v-if="user" class="sidenav" :class="{activeNav: isActive}">
+          <div v-if="user" class="sidenav" :class="{ activeNav: isActive }">
             <font-awesome-icon
               tabindex="0"
               class="closeBtn"
-              :class="{fade: !isActive}"
+              :class="{ fade: !isActive }"
               role="button"
               icon="times"
               @click="closeNav"
@@ -28,7 +29,12 @@
             ></font-awesome-icon>
 
             <transition name="fade">
-              <div v-if="isActive" @click="closeNav" @keyup.enter="closeNav" tabindex="-1">
+              <div
+                v-if="isActive"
+                @click="closeNav"
+                @keyup.enter="closeNav"
+                tabindex="-1"
+              >
                 <router-link tag="a" to="/">About</router-link>
               </div>
             </transition>
@@ -59,13 +65,17 @@
             </transition>
           </div>
 
-          <router-link v-if="user" class="logo userMargin" to="/recipes">Cookbook</router-link>
+          <router-link v-if="user" class="logo userMargin" to="/recipes"
+            >Cookbook</router-link
+          >
           <router-link v-if="!user" class="logo" to="/">Cookbook</router-link>
 
           <div v-if="!user" class="flex" style="align-items: center;">
             <router-link class="login" to="/login">sign in</router-link>
             <p class="padding-sm"></p>
-            <router-link class="login registerMobile" to="/register">register</router-link>
+            <router-link class="login registerMobile" to="/register"
+              >register</router-link
+            >
           </div>
           <span
             v-if="user"
@@ -74,7 +84,8 @@
             class="logout"
             @keyup.enter="$emit('logout')"
             @click="$emit('logout')"
-          >logout</span>
+            >logout</span
+          >
         </div>
       </div>
     </nav>
@@ -105,8 +116,8 @@ export default {
 };
 </script>
 <style scoped>
-.paddingTop{
-  padding-top:5px;
+.paddingTop {
+  padding-top: 5px;
 }
 
 .fade-enter-active {
@@ -210,7 +221,8 @@ a.login:hover {
   transition: 0.1s;
 }
 
-.sidenav a:hover, .sidenav a:focus {
+.sidenav a:hover,
+.sidenav a:focus {
   color: black;
 }
 

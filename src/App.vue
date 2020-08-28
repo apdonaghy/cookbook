@@ -4,11 +4,14 @@
     <Navigation :user="user" @logout="logout" />
 
     <!-- global methods and gloabl/dynamic data properties -->
+    
+      <!-- @editrecipe='editrecipe' -->
     <router-view
       class="container"
       :user="user"
       :recipes="recipes"
       :error="error"
+      :recipeToEdit="recipeToEdit"
       @addRecipe="addRecipe"
       @deleterecipe="deleterecipe"
     />
@@ -25,11 +28,12 @@ export default {
   data: function() {
     return {
       user: null,
+      recipeToEdit: null,
       error: null,
       recipes: []
     };
   },
-    components: {
+  components: {
     Navigation
   },
   methods: {
@@ -51,7 +55,7 @@ export default {
           ingredients: payload.ingredients,
           recipeInstructions: payload.recipeInstructions,
           // this concatenated string consists of my firebase storage bucket url and the image name that I processed from the "recipePicChosen function"
-          imageUrlName: 
+          imageUrlName:
             "https://firebasestorage.googleapis.com/v0/b/cookbook-fa062.appspot.com/o/images%2F" +
             payload.imageUrlName +
             "?alt=media",
@@ -67,7 +71,10 @@ export default {
         .doc(payload)
         .delete();
       this.$router.push("/recipes");
-    }
+    },
+    editrecipe: function(array){
+    this.recipeToEdit = array
+  }
   },
   mounted() {
     // this collects data from the database – if recipes already exist and then pushes the recipe data to the – "recipes" array
@@ -102,7 +109,6 @@ export default {
   }
 };
 </script>
-
 
 <style>
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -662,7 +668,6 @@ input:focus::-webkit-input-placeholder {
   height: 34em;
 }
 
-
 .signInBtn {
   border: 3px solid black;
 
@@ -719,7 +724,6 @@ a {
 /* login and register */
 /* login and register */
 
-
 @media only screen and (max-width: 1300px) {
   .container {
     max-width: 1100px;
@@ -767,5 +771,4 @@ a {
     padding: 1.75em;
   }
 }
-
 </style>
