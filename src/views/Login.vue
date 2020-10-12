@@ -33,11 +33,10 @@
       </div>
 
       <p class="createAnAccount">
+        <span class="preview" role="button" tabindex="0" @click.prevent="preview" @keyup.enter="preview">Preview App</span>
         or
-        <router-link to="/register">Create an account</router-link>
-       
+        <router-link to="/register">Create an Account</router-link>
       </p>
-       
     </form>
 
     <div class="error" v-show="error">{{ error }}</div>
@@ -59,6 +58,12 @@ export default {
     document.body.className = "brand";
   },
   methods: {
+
+    preview: function() {
+      this.email = "testprofile@test.com"
+      this.password = "password"
+    },
+
     login: function() {
 
       Firebase.auth()
@@ -94,4 +99,13 @@ label{
 .showLabel{
   visibility:visible;
 }
+
+.preview{
+  cursor:pointer;
+}
+
+.preview:hover{
+  color:black;
+}
+
 </style>
