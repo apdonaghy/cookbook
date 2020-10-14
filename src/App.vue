@@ -688,6 +688,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 .createAnAccount {
+  font-size: 1.2em;
   text-align: center;
   margin-top: 15px;
   font-family: var(--medium);

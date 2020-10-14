@@ -29,11 +29,11 @@
         />
       </section>
       <div class="form-group text-right mb-0">
-        <button class="signInBtn" ref="signIn" type="submit">sign in</button>
+        <button class="signInBtn" type="submit">sign in</button>
       </div>
 
       <p class="createAnAccount">
-        <span class="preview" role="button" tabindex="0" @click="preview" @keyup.enter="preview">Preview App</span>
+        <button class="preview" @click="preview" @keyup.enter="preview">Preview App</button>
         or
         <router-link to="/register">Create an Account</router-link>
       </p>
@@ -100,11 +100,16 @@ label{
   visibility:visible;
 }
 
-.preview{
+button.preview{
   cursor:pointer;
+  background:none;
+  border:none;
+  padding:0;
+  font-family: var(--boldFace);
+  color: rgb(142, 142, 142);
 }
 
-.preview:hover{
+button.preview:hover{
   color:black;
 }
 
