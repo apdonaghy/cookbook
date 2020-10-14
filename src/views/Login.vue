@@ -29,11 +29,11 @@
         />
       </section>
       <div class="form-group text-right mb-0">
-        <button class="signInBtn" type="submit">sign in</button>
+        <button class="signInBtn" ref="signIn" type="submit">sign in</button>
       </div>
 
       <p class="createAnAccount">
-        <span class="preview" role="button" tabindex="0" @click.prevent="preview" @keyup.enter="preview">Preview App</span>
+        <span class="preview" role="button" tabindex="0" @click="preview" @keyup.enter="preview">Preview App</span>
         or
         <router-link to="/register">Create an Account</router-link>
       </p>
