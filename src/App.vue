@@ -5,15 +5,15 @@
 
     <!-- global methods and gloabl/dynamic data properties -->
     
-      <!-- @editrecipe='editrecipe' -->
+      
     <router-view
       class="container"
       :user="user"
       :recipes="recipes"
       :error="error"
-      :recipeToEdit="recipeToEdit"
       @addRecipe="addRecipe"
       @deleterecipe="deleterecipe"
+     
     />
   </div>
 </template>
@@ -28,7 +28,6 @@ export default {
   data: function() {
     return {
       user: null,
-      recipeToEdit: null,
       error: null,
       recipes: []
     };

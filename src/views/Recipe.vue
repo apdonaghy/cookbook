@@ -24,13 +24,7 @@
         <p class="paragraphStyle recipeText">{{ item.recipeInstructions }}</p>
 
 
-          <!-- <button
-          class="delete"
-          title="Edit Recipe"
-          @click="$emit('editrecipe', localRecipe[0])"
-        >
-         Edit Recipe
-        </button> -->
+
 
 
         <button
